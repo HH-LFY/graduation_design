@@ -1,0 +1,9 @@
+
+# python
+*.py[cod]
+*.so
+*.o
+
+# conf
+conf.py
+
