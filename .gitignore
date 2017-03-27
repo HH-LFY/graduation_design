@@ -8,3 +8,6 @@ conf.py
 
 # log
 log/
+
+# doc
+doc/
