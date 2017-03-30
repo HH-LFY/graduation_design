@@ -11,3 +11,6 @@ log/
 
 # doc
 doc/
+
+# others
+*.sw[pmnkol]

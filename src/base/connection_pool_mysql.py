@@ -7,6 +7,9 @@ import MySQLdb
 import threading
 import logging
 
+def is_running():
+    print('%s is running~' % __file__)
+
 if __name__=="__main__":
     print('%s is running' % sys.argv[0].split('.')[0])
     db = MySQLdb.connect(host='localhost',user='root',passwd='123456',db='sys',port=3306)
