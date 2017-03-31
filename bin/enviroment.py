@@ -5,6 +5,7 @@ import os
 import sys
 import datetime
 import logging
+import subprocess
 
 
 # 设置运行环境
@@ -52,9 +53,18 @@ if os.getenv('PYTHONPATH') == None:
 log_file = os.path.join(log_path,'server.log')
 logging.basicConfig(filename=log_file,
                     level=logging.DEBUG,
-                    format='%(levelname)s :: %(asctime)s %(filename)s[line:%(lineno)d] %(funcName)s: %(message)s',)
+                    format='%(levelname)s::%(asctime)s %(filename)s[line:%(lineno)d] fun(%(funcName)s): %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S')
 
-logging.info('write is ok!')
+# 重定向 stderr 和 stdout 到同一个 log 文件
+old_out = os.dup(sys.stdout.fileno())
+old_err = os.dup(sys.stderr.fileno())
+with open(log_file, "a") as fp:
+    fd = fp.fileno()
+    os.dup2(fd, sys.stdout.fileno())
+    os.dup2(fd, sys.stderr.fileno())
+
+logging.info("<logging module> is ok!")
 
 if __name__ == '__main__':
     print(__file__)
