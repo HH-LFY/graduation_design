@@ -1,10 +1,13 @@
-#-*- conding:utf-8 -*-
+#-*- coding:utf-8 -*-
 #!/usr/bin/env python
 
 import os
 import sys
 import datetime
 import logging
+
+
+# 设置运行环境
 
 file_path   = os.path.realpath(__file__)
 bin_path    = os.path.dirname(file_path)
@@ -30,7 +33,6 @@ if os.getenv('PYTHONPATH') == None:
     os.environ['PYTHONPATH'] = python_path
     try:
         from base import connection_pool_mysql
-        connection_pool_mysql.is_running()
     except ImportError, e:
         print('use os.environ , import base is error , python path will add in PATY~')
         sys.path.append(src_path)
@@ -38,7 +40,6 @@ if os.getenv('PYTHONPATH') == None:
         sys.path.append(conf_path)
         sys.path.append(bin_path)
         from base import connection_pool_mysql
-        connection_pool_mysql.is_running()
 
     else:
         print('add in path error \ndon\'t running..\n system will exit.')
@@ -46,7 +47,14 @@ if os.getenv('PYTHONPATH') == None:
     finally:
         pass
 
-import test2
+
+# 设置 logging
+log_file = os.path.join(log_path,'server.log')
+logging.basicConfig(filename=log_file,
+                    level=logging.DEBUG,
+                    format='%(levelname)s :: %(asctime)s %(filename)s[line:%(lineno)d] %(funcName)s: %(message)s',)
+
+logging.info('write is ok!')
 
 if __name__ == '__main__':
     print(__file__)
@@ -57,3 +65,4 @@ if __name__ == '__main__':
     print(log_path)
     print(python_path)
     print(os.getenv('PYTHONPATH'))
+    logging.warning('this is warning!')

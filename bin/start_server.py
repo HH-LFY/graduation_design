@@ -1,4 +1,4 @@
-#-*- conding:utf-8 -*-
+#-*- coding:utf-8 -*-
 #!/usr/bin/env python
 
 import os
