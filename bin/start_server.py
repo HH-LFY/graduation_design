@@ -9,4 +9,4 @@ import enviroment
 import base.connection_pool_mysql as connection_pool_mysql
 
 # connection_pool_mysql.is_running()
-connection_pool_mysql.test_main()
+connection_pool_mysql.test_pooled()

@@ -21,15 +21,18 @@ class MysqlConnection(object):
     __pool = None
     def __init__(self):
         self.conn = MysqlConnection.__getConn()
-        self.cursor = self.conn.cursor
+        self.cursor = self.conn.cursor()
 
     @staticmethod
     def __getConn():
         if MysqlConnection.__pool is None:
-            __pool = PooledDB(CONF['ks'],CONF['db_mysql'])
+            __pool = PooledDB(**CONF['db_mysql'])
         return __pool.connection()
 
-def test_main():
+    def getCursor(self):
+        return self.cursor
+
+def test_mysql():
     print('%s is running' % sys.argv[0].split('.')[0])
     db = MySQLdb.connect(**CONF['db_mysql'])
     cur = db.cursor()
@@ -41,6 +44,14 @@ def test_main():
     cur.close()
     db.close()
 
+def test_pooled():
+    db = MysqlConnection()
+    cur = db.getCursor()
+    ret = cur.execute('show tables;')
+    print('cur:%s' % ret)
+    print('fetchall:%s' % cur.fetchall().__str__())
+    cur.close()
+
 if __name__=="__main__":
-    test_main()
+    test_pooled()
 
