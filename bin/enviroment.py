@@ -16,6 +16,8 @@ root_path   = os.path.split(bin_path)[0]
 src_path    = os.path.join(root_path,'src')
 conf_path   = os.path.join(root_path,'conf')
 log_path    = os.path.join(root_path,'log')
+template_path = os.path.join(root_path,'template')
+static_path = os.path.join(root_path,'template/static')
 
 python_path = os.getenv('PYTHONPATH')
 

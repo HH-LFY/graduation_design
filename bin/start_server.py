@@ -18,7 +18,9 @@ def start_server_in_subprocess():
         sleep(2)
     sys.exit(2)
 
-def start_server():
+def start_ser
+
+ver():
     run_daemon()
     try:
         pid = os.fork()
