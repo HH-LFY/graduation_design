@@ -6,21 +6,19 @@ import sys
 import datetime
 import logging
 import enviroment
-import base.connection_pool_mysql as connection_pool_mysql
+
+import http.server as root_server
+
 from daemon import run_daemon
 from time import sleep
 
 # 启动真正的运行进程
 def start_server_in_subprocess():
     logging.info('server start.')
-    for x in xrange(1,10):
-        logging.debug('case is %s',x)
-        sleep(2)
+    root_server.start_http_server()
     sys.exit(2)
 
-def start_ser
-
-ver():
+def start_server():
     run_daemon()
     try:
         pid = os.fork()
