@@ -17,8 +17,9 @@ def start_http_server():
 
     # 获取相关路径
     file_path   = os.path.realpath(__file__)
-    bin_path    = os.path.dirname(file_path)
-    root_path   = os.path.split(bin_path)[0]
+    http_path   = os.path.dirname(file_path)
+    src_path    = os.path.dirname(http_path)
+    root_path   = os.path.split(src_path)[0]
     template_path = os.path.join(root_path,'template')
     static_path = os.path.join(root_path,'template/static')
 

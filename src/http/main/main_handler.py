@@ -7,5 +7,5 @@ from base.base_handler import BaseHandler as BaseHandler
 
 class IndexHandler(BaseHandler):
     def get(self):
-        self.write('hello world')
-        self.finish()
+
+        self.render('index.html')
