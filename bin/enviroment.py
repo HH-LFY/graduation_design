@@ -35,7 +35,7 @@ if os.getenv('PYTHONPATH') == None:
     try:
         from base import connection_pool_mysql
     except ImportError, e:
-        print('use os.environ , import base is error , python path will add in PATY~')
+        # print('use os.environ , import base is error , python path will add in PATY~')
         sys.path.append(src_path)
         sys.path.append(log_path)
         sys.path.append(conf_path)
