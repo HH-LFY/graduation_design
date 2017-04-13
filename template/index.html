@@ -2,43 +2,103 @@
 
 {% block css %}
 
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+
 {% end %}
 
 
 
 {% block content %}
 
-<div id="myCarousel" class="carousel slide">
+<!-- <div id="myCarousel" class="carousel slide"> -->
     <!-- 轮播（Carousel）指标 -->
-    <ol class="carousel-indicators">
+    <!-- <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
+    </ol> -->
     <!-- 轮播（Carousel）项目 -->
-    <div class="carousel-inner">
+    <!-- <div class="carousel-inner">
         <div class="item active">
-            <img src="/static/image/test/01018465.jpg" alt="First slide">
+            <img src="/static/image/m_2.jpg" alt="First slide">
         </div>
         <div class="item">
-            <img src="/static/image/test/01022720.jpg" alt="Second slide">
+            <img src="/static/image/m_1.jpg" alt="Second slide">
         </div>
         <div class="item">
-            <img src="/static/image/test/61037184.jpg" alt="Third slide">
+            <img src="/static/image/m_3.jpg" alt="Third slide">
         </div>
-    </div>
+    </div> -->
     <!-- 轮播（Carousel）导航 -->
-    <div class="edge">
+<!--     <div class="edge">
         <a class="edge-left" href="#myCarousel"
            data-slide="prev">&lsaquo;</a>
         <a class="edge-right" href="#myCarousel"
            data-slide="next">&rsaquo;</a>
     </div>
 </div>
+ -->
+
+
+<div class="box-title">
+    <p>热门</p>
+</div>
+<div class="box-img">
+    <div class="box-img-left add-margin-right">
+        <img src="/static/image/hot/1.png">
+    </div>
+    <div class="box-img-right">
+        <img src="/static/image/hot/2.jpg">
+        <img src="/static/image/hot/3.jpg">
+    </div>
+</div>
+
+<div class="box-title">
+    <p>热门</p>
+</div>
+<div class="box-img">
+    <div class="box-img-right add-margin-right">
+        <img src="/static/image/test/61000095.jpg">
+        <img src="/static/image/test/61000095.jpg">
+    </div>
+    <div class="box-img-left">
+        <img src="/static/image/hot/1.png">
+    </div>
+</div>
+
+<div class="box-title">
+    <p>热门</p>
+</div>
+<div class="box-img">
+    <div class="box-img-right add-margin-right">
+        <img src="/static/image/m_1.jpg">
+        <img src="/static/image/m_2.jpg">
+    </div>
+    <div class="box-img-right">
+        <img src="/static/image/m_1.jpg">
+        <img src="/static/image/m_2.jpg">
+    </div>
+</div>
+
+
 
 {% end %}
 
 
 {% block js %}
+<!--重点是引入hammer.min.js-->
+<!-- <script type="text/javascript" src="http://cdn.bootcss.com/hammer.js/2.0.8/hammer.min.js"></script>
+<script>
+          $(function(){
+            var myElement= document.getElementById('myCarousel');
+            var hm=new Hammer(myElement);
+            hm.on("swipeleft",function(){
+                $('#myCarousel').carousel('next');
+            })
+            hm.on("swiperight",function(){
+                $('#myCarousel').carousel('prev');
+            })
+        })
+  </script> -->
 
 {% end %}

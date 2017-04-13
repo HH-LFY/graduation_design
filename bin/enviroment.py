@@ -66,6 +66,7 @@ with open(log_file, "a") as fp:
 
 logging.info("<logging module> is ok!")
 
+
 if __name__ == '__main__':
     print(__file__)
     print(bin_path)

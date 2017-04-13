@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>演示：jQuery弹出窗口切换登录与注册表单</title>
+<meta name="keywords" content="jquery,注册" />
+<meta name="description" content="Helloweba文章结合实例演示HTML5、CSS3、jquery、PHP等WEB技术应用。" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<!-- <script type="text/javascript" src="http://libs.useso.com/js/jquery/1.7.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.slim.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</head>
+
+<body>
+
+<div id="header">
+   <div id="logo"><h1><a href="http://www.helloweba.com" title="返回helloweba首页">helloweba</a></h1></div>
+   <div class="demo_topad"><script src="js/demo_topad.js" type="text/javascript"></script></div>
+</div>
+
+<div id="main">
+   <h2 class="top_title"><a href="http://www.helloweba.com/view-blog-304.html">jQuery弹出窗口切换登录与注册表单</a></h2>
+	<div class="demo">
+		<nav class="main_nav">
+			<ul>
+				<li><a class="cd-signin" href="#0">登录</a></li>
+				<li><a class="cd-signup" href="#0">注册</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="cd-user-modal">
+		<div class="cd-user-modal-container">
+			<ul class="cd-switcher">
+				<li><a href="#0">用户登录</a></li>
+				<li><a href="#0">注册新用户</a></li>
+			</ul>
+
+			<div id="cd-login"> <!-- 登录表单 -->
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signin-username">用户名</label>
+						<input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="输入用户名">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signin-password">密码</label>
+						<input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="remember-me" checked>
+						<label for="remember-me">记住登录状态</label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="登 录">
+					</p>
+				</form>
+			</div>
+
+			<div id="cd-signup"> <!-- 注册表单 -->
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">用户名</label>
+						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="输入用户名">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">邮箱</label>
+						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="输入mail">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">密码</label>
+						<input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="accept-terms">
+						<label for="accept-terms">我已阅读并同意 <a href="#0">用户协议</a></label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="注册新用户">
+					</p>
+				</form>
+			</div>
+
+			<a href="#0" class="cd-close-form">关闭</a>
+		</div>
+	</div>
+
+   <div class="ad_76090"><script src="/js/ad_js/bd_76090.js" type="text/javascript"></script></div><br/>
+</div>
+<div id="footer">
+    <p>Powered by helloweba.com  允许转载、修改和使用本站的DEMO，但请注明出处：<a href="http://www.helloweba.com">www.helloweba.com</a></p>
+</div>
+
+<p id="stat"><script type="text/javascript" src="/js/tongji.js"></script></p>
+</body>
+</html>

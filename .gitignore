@@ -16,4 +16,5 @@ doc/
 *.sw[pmnkol]
 
 # image
+template/static/image/
 image/
