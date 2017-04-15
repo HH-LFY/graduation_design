@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/image_detail.css">
+
+{% end %}
+
+
+
+{% block content %}
+
+<div class="image-detail-content add-bg">
+    <div class="show-image">
+        <img src="/static/image/hot/1.png">
+    </div>
+    <div class="option">
+        <button type="button" class="btn btn-default img-praise">赞</button>
+        <button type="button" class="btn btn-default img-like">收藏</button>
+        <button type="button" class="btn btn-default img-down">下载</button>
+    </div>
+    <div class="author-info">
+        <span>分享者:<a>admin</a></span>
+        <button class="btn btn-danger">关注</button>
+    </div>
+</div>
+
+<div class="img-detail-coment add-bg">
+    <h1 class="img-detail-comment-title">评论</h1>
+    <div class="add-disscuss">
+        <p>添加评论</p>
+        <textarea></textarea>
+        <button class="btn btn-default">提交</button>
+    </div>
+    <div class="user-comment">
+        <div class="user-pic"><img src="/static/image/hot/touxiang_1.jpg"></div>
+        <div class="disscuss">
+            <p class="disscuss-content">
+                <span class="disscuss-title">username:</span>
+                content
+            </p>
+            <p class="disscuss-datetime">2017-1-2 12:01:02</p>
+            <p class="disscuss-option"> 回复 </p>
+        </div>
+    </div>
+
+    <div class="get-more-line now-class">
+        <a href="">加载更多</a>
+    </div>
+</div>
+
+
+{% end %}
+
+
+{% block js %}
+
+{% end %}

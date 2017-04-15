@@ -66,6 +66,30 @@ p{
     background-size: contain;
 }
 
+.img-praise{
+    background: url(/static/image/base/dianzan.png) no-repeat !important;
+    background-size: contain !important;
+    padding-left: 2rem;
+}
+
+.img-down{
+    background: url(/static/image/base/down.png) no-repeat !important;
+    background-size: contain !important;
+    padding-left: 2rem;
+}
+
+.img-like{
+    background: url(/static/image/base/like.png) no-repeat !important;
+    background-size: contain !important;
+    padding-left: 2rem;
+}
+
+.img-like-fill{
+    background: url(/static/image/base/like_fill.png) no-repeat !important;
+    background-size: contain !important;
+    padding-left: 2rem;
+}
+
 .get-more-line{
     border-radius: 2px;
     position: relative;

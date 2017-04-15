@@ -27,6 +27,7 @@ def start_http_server():
     handlers = [
         (r'/',main.IndexHandler),
         (r'/category.html',main.CategoryHandler),
+        (r'/image_detail.html',main.ImageDetailHandler),
         (r'/.*',main.ErrorHandler)
     ]
 

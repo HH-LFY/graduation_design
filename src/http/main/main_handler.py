@@ -14,6 +14,11 @@ class CategoryHandler(BaseHandler):
     def get(self):
         self.render('category.html')
 
+class ImageDetailHandler(BaseHandler):
+    def get(self):
+        self.render('image_detail.html')
+
+
 class ErrorHandler(BaseHandler):
     def get(self):
         self.render('error.html')

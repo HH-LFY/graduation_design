@@ -1,0 +1,138 @@
+
+.image-detail-content{
+    position: relative;
+    margin: auto;
+    margin-top: 2rem;
+    width: 80rem;
+}
+
+.show-image{
+    height: 39rem;
+}
+
+.show-image img{
+    border-radius: 0.2rem;
+    width: 100%;
+    height: 100%;
+}
+
+.option{
+    width: 100%;
+    padding:0.8rem;
+    border-top: 0.2rem solid #f2f2f2;
+    border-bottom: 0.2rem solid #f2f2f2;
+}
+
+.option button{
+    margin-right: 0.5rem;
+}
+
+
+
+.img-detail-coment{
+    width: 80rem;
+    position: relative;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+.img-detail-comment-title{
+    font-size: 2rem;
+    padding: 0.8rem !important;
+    border-bottom: 0.2rem solid;
+    border-color: darkgray;;
+}
+
+.user-comment{
+    width: 100%;
+    position: relative;
+    display: flex;
+    padding-bottom: 1rem;
+
+}
+
+.author-info{
+    padding: 0.8rem;
+    font-size: 1.3rem;
+    padding-left: 66rem;
+}
+
+.user-pic{
+    width: 6rem;
+    height: 6rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    /*display: inline-block;*/
+}
+
+.user-pic img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.disscuss{
+    margin-left: 1rem;
+    flex-grow: 1;
+    /*display: inline-block;*/
+}
+
+.disscuss-title{
+    color:  #666;
+    font-size: 1.1rem;
+}
+
+.disscuss-datetime{
+    color:  #777;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 1rem;
+}
+
+.disscuss-option{
+    color:  #777;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.disscuss-content{
+    /*color:  #777;*/
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+}
+
+.now-class{
+    border-top: 0.1rem solid;
+    border-bottom: 0.2rem solid;
+    border-color: darkgray;;
+    font-size: 1.2rem;
+}
+
+.add-disscuss{
+    padding-bottom: 0.8rem;
+    border-bottom: 0.2rem solid;
+    border-color: darkgray;
+}
+
+.add-disscuss p{
+    font-size: 1.3rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.2rem;
+    text-align:center;
+}
+
+.add-disscuss textarea{
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    height: 5rem;
+}
+
+.add-disscuss button{
+    display: block;
+    margin:auto;
+    margin-top: 0.8rem;
+}
