@@ -26,6 +26,8 @@ def start_http_server():
     # tornado http 配置
     handlers = [
         (r'/',main.IndexHandler),
+        (r'/category.html',main.CategoryHandler),
+        (r'/.*',main.ErrorHandler)
     ]
 
     settings = dict(

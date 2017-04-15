@@ -72,33 +72,6 @@
     height: 100%;
 }
 
-.get-more-line{
-    border-radius: 2px;
-    position: relative;
-    padding: 1.2rem 0;
-    text-align: center;
-}
-
-.get-more-line a{
-    display: inline-block;
-    width: 18%;
-    background-color: #f5f5f5;
-    padding: 0.5rem;
-    color: #999;
-    opacity: 0.8;
-}
-
-.get-more-line a:hover{
-    opacity: 1;
-}
-
-.get-more-line:before,
-.get-more-line:after{
-    display: inline-block;
-    width: 30%;
-    content: "";
-    border: 0.1rem solid #ededed;
-}
 
 
 div{
