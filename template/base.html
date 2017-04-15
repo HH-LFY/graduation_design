@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <div id="wrap">
+    <!-- <div id="wrap"> -->
         <div id="header">
             {% block header %}
                 <nav class="navbar navbar-default navbar-default-bgcolor" role="navigation">
@@ -76,7 +76,7 @@
                 <h1>content</h1>
             {% end %}
         </div>
-    </div>
+    <!-- </div> -->
     <div id="footer">
         {% block footer %}
             <div class="container">
@@ -88,7 +88,7 @@
         {% end %}
     </div>
     <!-- 基础js文件 -->
-    <!-- <script type="text/javascript" color="255,124,0" opacity="0.5" count="150" src="/static/js/canvas-nest.min.js"></script> -->
+    <script type="text/javascript" color="255,124,0" opacity="0.8" count="100" src="/static/js/canvas-nest.min.js"></script>
 
     <!-- 可能需要操作DOM节点树的javascript，必须放在节点树后面引入 -->
     {% block js %}{% end %}

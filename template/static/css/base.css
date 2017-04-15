@@ -8,6 +8,10 @@ html,body{
     height: 100%;
 }
 
+img{
+    border-radius: 0.5rem;
+}
+
 @media (min-width: 480px) {
     html {
         font-size: 16px;
@@ -28,13 +32,46 @@ p{
     font-size: 1rem;
 }
 
+/*通用css*/
+
+.add-margin-right{
+    margin-right: 0.5rem !important;
+}
+
+.add-margin-left{
+    margin-left: 0.5rem !important;
+}
+
+.add-margin-top{
+    margin-top: 0.5rem !important;
+}
+
+.add-margin-bottom{
+    margin-bottom: 0.5rem !important;
+}
+
+.add-bg{
+    background-color: #f5f5f5 !important;
+}
+
+.add-item-praise{
+    position: absolute !important;
+    bottom: 1rem;
+    left: 1rem;
+    padding-left: 1.2rem;
+    color: #000;
+    opacity: 0.8 !important;
+    background: url(/static/image/base/dianzan.png) no-repeat;
+    background-size: contain;
+}
+
 .display-none{
     display: none !important;
 }
 
 /* headers */
 .navbar-default-bgcolor{
-    background-color: #f5f5f5 !important;
+    background-color: #f3f3f3 !important;
 }
 .navbar{
     margin-bottom: 0rem !important;
@@ -42,8 +79,8 @@ p{
 
 /* footer */
 #footer{
-    background-color: #f5f5f5;
-
+    background-color: #002;
+    width: 100%;
 }
 
 #wrap{
