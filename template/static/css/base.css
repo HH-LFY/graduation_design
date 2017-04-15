@@ -66,6 +66,17 @@ p{
     background-size: contain;
 }
 
+.add-item-praise-big{
+    position: absolute !important;
+    left: 1rem;
+    padding-left: 1.2rem;
+    color: #000;
+    opacity: 0.8 !important;
+    background: url(/static/image/base/dianzan.png) no-repeat;
+    background-size: contain;
+    bottom: 7rem;
+}
+
 .img-praise{
     background: url(/static/image/base/dianzan.png) no-repeat !important;
     background-size: contain !important;
@@ -208,4 +219,8 @@ p{
 .edge-right{
     margin-right: 10%;
     flex-direction: row-reverse;
+}
+
+div{
+    /*border: 0.1rem solid red;*/
 }

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/personal_info.css">
+
+{% end %}
+
+
+
+{% block content %}
+
+<div class="personal-info">
+    <div class="personal-left">
+        <table>
+            <tr>
+                <td rowspan='3'><img class="personal-user-img" src="/static/image/hot/touxiang_1.jpg"></td>
+                <td><a href="">修改密码</a></td>
+            </tr>
+            <tr>
+                <td><a href="">修改头像</a></td>
+            </tr>
+            <tr>
+                <td><a href="">修改个人资料</a></td>
+            </tr>
+        </table>
+        <div>获赞数量:<a href="">0</a></div>
+        <div>粉丝数量:<a href="">0</a></div>
+        <div>关注数量:<a href="">0</a></div>
+        <div>收藏数量:<a href="">0</a></div>
+        <div><a href="">更换主页插图</a></div>
+        <div><a href="">我的留言</a></div>
+        <div><a href="">我要分享</a></div>
+    </div>
+    <div class="personal-right">
+        <img src="/static/image/hot/1.png">
+    </div>
+</div>
+
+<div class="box-title">
+    <p>最近点赞图片</p>
+</div>
+<div class="box-img">
+    <ul class="img-list">
+        <li class="add-margin-right add-margin-bottom">
+            <a href="">
+                <img src="/static/image/hot/1.png">
+                <span class="add-item-praise-big">0</span>
+            </a>
+        </li>
+        <li class="add-margin-bottom">
+            <a href="">
+                <img src="/static/image/hot/2.jpg">
+                <span class="add-item-praise-big">0</span>
+            </a>
+        </li>
+        <li class="add-margin-right add-margin-bottom">
+            <a href="">
+                <img src="/static/image/hot/1.png">
+                <span class="add-item-praise-big">0</span>
+            </a>
+        </li>
+        <li class="add-margin-bottom">
+            <a href="">
+                <img src="/static/image/hot/2.jpg">
+                <span class="add-item-praise-big">0</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<div class="get-more-line">
+    <a href="">加载更多</a>
+</div>
+
+
+{% end %}
+
+
+{% block js %}
+
+{% end %}

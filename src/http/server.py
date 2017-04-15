@@ -28,6 +28,7 @@ def start_http_server():
         (r'/',main.IndexHandler),
         (r'/category.html',main.CategoryHandler),
         (r'/image_detail.html',main.ImageDetailHandler),
+        (r'/personal_info.html',main.PersonalInfoHandler),
         (r'/.*',main.ErrorHandler)
     ]
 

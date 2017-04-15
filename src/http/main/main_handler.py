@@ -18,9 +18,10 @@ class ImageDetailHandler(BaseHandler):
     def get(self):
         self.render('image_detail.html')
 
+class PersonalInfoHandler(BaseHandler):
+    def get(self):
+        self.render('personal_info.html')
 
 class ErrorHandler(BaseHandler):
     def get(self):
         self.render('error.html')
-
-
