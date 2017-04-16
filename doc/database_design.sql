@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS s_user(
     user_username VARCHAR(50) NOT NULL,
     user_password VARCHAR(50) NOT NULL,
     user_pic_addr VARCHAR(50),
-    user_sex VARCHAR(50),
-    user_desc VARCHAR(200),
+    -- user_sex VARCHAR(50),
+    -- user_desc VARCHAR(200),
     reserve_1 VARCHAR(50),
     reserve_2 VARCHAR(50),
     PRIMARY KEY(user_id)
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS s_admin(
     PRIMARY KEY(admin_id)
 );
 
--- 图片分类表 s_category
+-- 壁纸分类表 s_category
 CREATE TABLE IF NOT EXISTS s_category(
     category_id INT AUTO_INCREMENT,
     category_pid INT,
@@ -39,13 +39,13 @@ CREATE TABLE IF NOT EXISTS s_category(
     PRIMARY KEY(category_id)
 );
 
--- 图片表 s_img
+-- 壁纸表 s_img
 CREATE TABLE IF NOT EXISTS s_img(
     img_id INT AUTO_INCREMENT,
     img_addr VARCHAR(50) NOT NULL,
     img_addr_small VARCHAR(50),
     img_size VARCHAR(50),
-    img_desc VARCHAR(200),
+    -- img_desc VARCHAR(200),
     img_author_id INT,
     img_category_id INT,
     img_pv_count INT,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS s_discuss_praise(
     UNIQUE(discuss_id,user_id)
 );
 
--- 图片点赞表 s_img_praise
+-- 壁纸点赞表 s_img_praise
 CREATE TABLE IF NOT EXISTS s_img_praise(
     img_id INT,
     user_id INT,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS s_img_praise(
     UNIQUE(img_id,user_id)
 );
 
--- 图片feed流 s_img_feed
+-- 壁纸feed流 s_img_feed
 CREATE TABLE IF NOT EXISTS s_img_feed(
     feed_id INT,
     feed_type VARCHAR(50),
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS s_img_feed(
     FOREIGN KEY(img_id) REFERENCES s_img(img_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 用户收藏图片表 s_img_collet
+-- 用户收藏壁纸表 s_img_collet
 CREATE TABLE IF NOT EXISTS s_img_collet(
     user_id INT,
     img_id INT,
@@ -122,7 +122,16 @@ CREATE TABLE IF NOT EXISTS s_user_follow(
     UNIQUE(user_id_a,user_id_b)
 );
 
--- 用户上传图片表 s_user_upload
+-- 用户关注类别表 s_user_follow
+CREATE TABLE IF NOT EXISTS s_category_follow(
+    user_id_a INT,
+    category_id INT,
+    FOREIGN KEY(user_id_a) REFERENCES s_user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(category_id) REFERENCES s_category(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(user_id_a,category_id)
+);
+
+-- 用户上传壁纸表 s_user_upload
 CREATE TABLE IF NOT EXISTS s_user_upload(
     user_id INT,
     img_id INT,
