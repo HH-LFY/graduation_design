@@ -10,7 +10,7 @@ conf.py
 log/
 
 # doc
-doc/
+#doc/
 
 # others
 *.sw[pmnkol]
