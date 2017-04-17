@@ -52,7 +52,7 @@ p{
 
 .add-bg{
     /*background:url(/static/image/base/bg.jpg);*/
-    background-color: #f5f5f5 !important;
+    background-color: #f8f8f8 !important;
 }
 
 .add-item-praise{
@@ -145,6 +145,8 @@ p{
 #footer{
     background-color: #002;
     width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 #wrap{

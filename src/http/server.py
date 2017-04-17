@@ -29,6 +29,8 @@ def start_http_server():
         (r'/category.html',main.CategoryHandler),
         (r'/image_detail.html',main.ImageDetailHandler),
         (r'/personal_info.html',main.PersonalInfoHandler),
+        (r'/login.html',main.LoginHandler),
+        (r'/register.html',main.RegisterHandler),
         (r'/.*',main.ErrorHandler)
     ]
 
@@ -39,6 +41,7 @@ def start_http_server():
         cookie_secret="luofengyue",
         debug=True,
         gzip=True,
+        login_url="/login",
     )
 
     application = tornado.web.Application(handlers,**settings)

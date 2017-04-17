@@ -1,0 +1,11 @@
+
+.register-box{
+    width: 20rem;
+    height: 50rem;
+    margin: 0rem auto;
+    padding-top: 10rem;
+}
+
+.register-title h1{
+    text-align: center;
+}

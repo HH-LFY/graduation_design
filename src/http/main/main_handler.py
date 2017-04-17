@@ -25,3 +25,11 @@ class PersonalInfoHandler(BaseHandler):
 class ErrorHandler(BaseHandler):
     def get(self):
         self.render('error.html')
+
+class LoginHandler(BaseHandler):
+    def get(self):
+        self.render('login.html')
+
+class RegisterHandler(BaseHandler):
+    def get(self):
+        self.render('register.html')

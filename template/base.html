@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body class="add-bg">
     <!-- <div id="wrap"> -->
         <div id="header" class="add-bg">
             {% block header %}
@@ -63,8 +63,8 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="#">登录</a></li>
-                            <li class=""><a href="#">注册</a></li>
+                            <li class=""><a href="/login.html">登录</a></li>
+                            <li class=""><a href="/register.html">注册</a></li>
                         </ul>
                     </div>
                     </div>
@@ -88,7 +88,7 @@
         {% end %}
     </div>
     <!-- 基础js文件 -->
-    <script type="text/javascript" color="255,124,0" opacity="0.8" count="100" src="/static/js/canvas-nest.min.js"></script>
+    <script type="text/javascript" color="255,124,0" opacity="0.8" count="200" src="/static/js/canvas-nest.min.js"></script>
 
     <!-- 可能需要操作DOM节点树的javascript，必须放在节点树后面引入 -->
     {% block js %}{% end %}
