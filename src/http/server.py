@@ -11,6 +11,7 @@ import tornado.ioloop
 
 # handler module
 import http.main.main_handler as main
+import http.manage.manage_handler as manage
 
 def start_http_server():
     logging.info('Try to start tornado.')
@@ -31,6 +32,10 @@ def start_http_server():
         (r'/personal_info.html',main.PersonalInfoHandler),
         (r'/login.html',main.LoginHandler),
         (r'/register.html',main.RegisterHandler),
+        (r'/manage_login.html',manage.ManageLoginHandler),
+        (r'/manage/user_manage.html',manage.ManageUserHandler),
+        (r'/manage/img_manage.html',manage.ManageImgHandler),
+        (r'/manage/category_manage.html',manage.ManageCategoryHandler),
         (r'/.*',main.ErrorHandler)
     ]
 

@@ -1,11 +1,13 @@
 
 *{
     margin: 0rem;
-    padding: 0rem;
+    padding: 0rem ;
 }
 
 html,body{
-    height: 100%;
+    height: 100% !important;
+    margin: 0rem !important;
+    padding: 0rem  !important;
 }
 
 img{
@@ -221,6 +223,23 @@ p{
 .edge-right{
     margin-right: 10%;
     flex-direction: row-reverse;
+}
+
+.go-die{
+    display: none;
+}
+
+#go-die + div{
+    display: none;
+}
+
+#left-nav{
+    width: 11rem;
+    border-right: 0.1rem solid;
+    border-color: gainsboro;
+    height: 51.8rem;
+    padding-top: 5rem;
+    text-align: right;
 }
 
 div{
