@@ -3,7 +3,7 @@
     position: relative;
     margin: auto;
     margin-top: 2rem;
-    width: 80rem;
+    width: 65rem;
 }
 
 .show-image{
@@ -30,7 +30,7 @@
 
 
 .img-detail-coment{
-    width: 80rem;
+    width: 65rem;
     position: relative;
     margin: auto;
     margin-top: 2rem;
@@ -55,7 +55,7 @@
 .author-info{
     padding: 0.8rem;
     font-size: 1.3rem;
-    padding-left: 66rem;
+    padding-left: 50rem;
 }
 
 .user-pic{

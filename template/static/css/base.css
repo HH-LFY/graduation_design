@@ -57,6 +57,10 @@ p{
     background-color: #f8f8f8 !important;
 }
 
+.add-flex{
+    display: flex !important;
+}
+
 .add-item-praise{
     position: absolute !important;
     bottom: 1rem;
@@ -240,6 +244,13 @@ p{
     height: 51.8rem;
     padding-top: 5rem;
     text-align: right;
+}
+
+.manage-box{
+    width: 60rem;
+    height: 51.8rem;
+    padding-top: 5rem;
+    padding-left: 1rem;
 }
 
 div{

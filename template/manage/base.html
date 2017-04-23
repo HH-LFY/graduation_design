@@ -29,7 +29,6 @@
 </head>
 
 <body class="add-bg">
-    <!-- <div id="wrap"> -->
         <div id="header" >
             {% block header %}
                 <nav class="navbar navbar-default navbar-default-bgcolor" role="navigation">
@@ -53,6 +52,8 @@
                     </div>
                 </nav>
             {% end %}
+        </div>
+        <div id="content" class="add-flex" >
             {% block left_nav %}
                 <div id="left-nav">
                     <ul class="nav nav-pills nav-stacked">
@@ -60,16 +61,14 @@
                       <li role="presentation"><a href="#">壁纸分类管理</a></li>
                       <li role="presentation"><a href="#">壁纸管理</a></li>
                       <li role="presentation"><a href="#">首页壁纸推荐管理</a></li>
+                      <li role="presentation"><a href="#">评论管理</a></li>
                     </ul>
                 </div>
             {% end %}
-        </div>
-        <div id="content" >
             {% block content %}
                 <h1>content</h1>
             {% end %}
         </div>
-    <!-- </div> -->
     <div id="footer">
         {% block footer %}
             <div class="container">
