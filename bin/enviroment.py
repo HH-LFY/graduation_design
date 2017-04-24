@@ -7,7 +7,6 @@ import datetime
 import logging
 import subprocess
 
-
 # 设置运行环境
 
 file_path   = os.path.realpath(__file__)

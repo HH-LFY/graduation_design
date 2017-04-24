@@ -44,7 +44,7 @@ def start_http_server():
         static_path=static_path,
         xsrf_cookies=True,
         cookie_secret="luofengyue",
-        debug=True,
+        # debug=True,
         gzip=True,
         login_url="/login",
     )
