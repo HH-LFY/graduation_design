@@ -36,6 +36,7 @@ def start_http_server():
         (r'/manage/user_manage.html',manage.ManageUserHandler),
         (r'/manage/img_manage.html',manage.ManageImgHandler),
         (r'/manage/category_manage.html',manage.ManageCategoryHandler),
+        (r'/.*',main.TestHandler),
         (r'/.*',main.ErrorHandler)
     ]
 

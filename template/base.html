@@ -61,10 +61,13 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="/login.html">登录</a></li>
-                            <li class=""><a href="/register.html">注册</a></li>
-                          <!--   <li class=""><a href="/login.html">黄松鹏</a></li>
-                            <li class=""><a href="/register.html">退出</a></li> -->
+                            {% if user_nickname %}
+                                <li class=""><a href="/personal_info.html">{{ user_nickname }}</a></li>
+                                <li class=""><a href="/login_out.html">退出</a></li>
+                            {% else %}
+                                <li class=""><a href="/login.html">登录</a></li>
+                                <li class=""><a href="/register.html">注册</a></li>
+                            {% end %}
                         </ul>
                     </div>
                     </div>
@@ -94,7 +97,9 @@
     {% block js %}{% end %}
 <script type="text/javascript">
 
-
+{% if code != 200 %}
+    alert('{{ code }} {{ code_msg }}');
+{% end %}
 
 </script>
 

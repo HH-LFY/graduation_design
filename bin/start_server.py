@@ -7,13 +7,12 @@ import datetime
 import logging
 import enviroment
 
-import http.server as root_server
-
 from daemon import run_daemon
 from time import sleep
 
 # 启动真正的运行进程
 def start_server_in_subprocess():
+    import http.server as root_server
     logging.info('server start.')
     root_server.start_http_server()
     sys.exit(2)

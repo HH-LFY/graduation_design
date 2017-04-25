@@ -1,12 +1,15 @@
-# -*- conding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 import logging
 import time
 import threading
+import random
 
+
+from all_code import *
 from tornado import *
 from main_const import *
-from base.base_handler import BaseHandler as BaseHandler
+from base.base_handler import BaseHandler
 from main.main_db import main_db
 
 
@@ -14,28 +17,33 @@ from main.main_db import main_db
 
 class IndexHandler(BaseHandler):
     def get(self):
-        self.render('index.html')
+        self.make_render('index.html')
 
 class CategoryHandler(BaseHandler):
 
     def get(self):
-        self.render('category.html')
+        self.make_render('category.html')
 
 class ImageDetailHandler(BaseHandler):
     def get(self):
-        self.render('image_detail.html')
+        self.make_render('image_detail.html')
 
 class PersonalInfoHandler(BaseHandler):
     def get(self):
-        self.render('personal_info.html')
+        self.make_render('personal_info.html')
 
 class ErrorHandler(BaseHandler):
     def get(self):
-        self.render('error.html')
+        self.make_render('error.html')
 
 class LoginHandler(BaseHandler):
     def get(self):
-        self.render('login.html')
+        self.make_render('login.html')
+
+class TestHandler(BaseHandler):
+    def get(self):
+        self.write('<html><a href="http://max_len1.52.235.231:40030/page_v3/wallet_free_minute.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458">http://max_len1.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458</a></html>')
+
 
 class RegisterHandler(BaseHandler):
 
@@ -46,8 +54,82 @@ class RegisterHandler(BaseHandler):
 
     def doPost(self):
         logging.info('-------%s start-------',__name__)
-        logging.info(main_db.insertUser())
-        self.redirect('login.html')
+        try:
+            nickname = self.get_argument('nickname',None)
+            username = self.get_argument('username',None)
+            password = self.get_argument('password',None)
+
+            template_vars = {
+                'nickname':nickname,
+                'username':username,
+                'password':password
+            }
+            logging.info(template_vars)
+            validate_result = self.validateRegister(template_vars)
+
+            # 验证参数是否合法
+            if not validate_result:
+                self.make_render('register.html',
+                            code = ERROR_CODE_PARAMETER_REGISTER,
+                            code_msg = CODE_MSG[ERROR_CODE_PARAMETER_REGISTER])
+                return None
+
+            # 验证姓名和用户名是否存在
+            nickname_username = [nickname,username]
+            check_name_result = main_db.getCountByNicknameOrUsername(nickname_username)
+            if not check_name_result:
+                self.make_render('register.html',
+                            code = ERROR_CODE_NAME_ALREADY_EXIST_REGISTER,
+                            code_msg = CODE_MSG[ERROR_CODE_NAME_ALREADY_EXIST_REGISTER])
+                return None
+
+            # 注册新用户
+            password = self.get_md5(password)
+            pic_addr = r"/static/image/header/" + str(random.randint(1, 5)) + r".jpg"
+            user_info = [nickname,username,password,pic_addr]
+            insert_result = main_db.insertUser(user_info)
+
+            if not insert_result:
+                self.make_render('register.html',
+                            code = ERROR_UNKNOW_REASON_REGISTER_FAIL,
+                            code_msg = CODE_MSG[ERROR_UNKNOW_REASON_REGISTER_FAIL])
+                return None
+            self.set_secure_cookie('user_username',username)
+            self.set_secure_cookie('user_nickname',nickname)
+            self.redirect('/')
+        except :
+            logging.error('user register error.',exc_info=True)
+
+    def validateRegister(self,pkg):
+
+        max_len = 20
+        min_len = 6
+
+        nickname = pkg.get('nickname',None)
+        username = pkg.get('username',None)
+        password = pkg.get('username',None)
+
+        if not nickname or\
+           not username or\
+           not password:
+           logging.error('register param is None.%s',pkg)
+           return False
+
+        len_nickname = len(nickname)
+        len_username = len(username)
+        len_password = len(password)
+
+        if len_nickname > max_len or len_nickname == 0:
+            logging.error('nickname len not legal.%s',len_nickname)
+            return False
+        if len_username > max_len or len_username < min_len:
+            logging.error('username len not legal.%s',len_username)
+            return False
+        if len_password > max_len or len_password < min_len:
+            logging.error('password len not legal.%s',len_password)
+            return False
+        return True
+
 
     def get(self):
-        self.render('register.html')
+        self.make_render('register.html')
