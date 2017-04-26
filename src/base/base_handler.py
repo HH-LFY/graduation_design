@@ -17,6 +17,8 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.get_secure_cookie("user_username")
 
     def get_md5(self,kstr):
+        if not kstr:
+            kstr = ''
         kstr = kstr + SALT
         m = hashlib.md5()
         m.update(kstr)

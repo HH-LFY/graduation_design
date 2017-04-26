@@ -63,7 +63,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             {% if user_nickname %}
                                 <li class=""><a href="/personal_info.html">{{ user_nickname }}</a></li>
-                                <li class=""><a href="/login_out.html">退出</a></li>
+                                <li class=""><a href="/login_out">退出</a></li>
                             {% else %}
                                 <li class=""><a href="/login.html">登录</a></li>
                                 <li class=""><a href="/register.html">注册</a></li>
@@ -98,7 +98,7 @@
 <script type="text/javascript">
 
 {% if code != 200 %}
-    alert('{{ code }} {{ code_msg }}');
+    alert('错误代码：{{ code }}\n错误原因：{{ code_msg }}');
 {% end %}
 
 </script>

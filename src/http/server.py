@@ -31,6 +31,7 @@ def start_http_server():
         (r'/image_detail.html',main.ImageDetailHandler),
         (r'/personal_info.html',main.PersonalInfoHandler),
         (r'/login.html',main.LoginHandler),
+        (r'/login_out',main.LoginOutHandler),
         (r'/register.html',main.RegisterHandler),
         (r'/manage_login.html',manage.ManageLoginHandler),
         (r'/manage/user_manage.html',manage.ManageUserHandler),

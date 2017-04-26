@@ -15,7 +15,7 @@ class MainDb(object):
     def insertUser(self,param):
         logging.info('-------%s start-------',__name__)
         try:
-            ret = self.db.executeOne(INSERT_USER,param)
+            ret = self.db.executeOne(SQL_INSERT_USER,param)
             logging.info(ret)
             # self.db.end()
             if ret :
@@ -24,14 +24,14 @@ class MainDb(object):
                 return False
         except:
             logging.error('insert into user is error.',exc_info=True)
+            return False
             # self.db.end(False)
 
     def getCountByNicknameOrUsername(self,param):
         logging.info('-------%s start-------',__name__)
         try:
-            row = self.db.getOne(GET_USER_BY_NICKNAME_OR_USERNAME,param)
+            row = self.db.getOne(SQL_GET_USER_BY_NICKNAME_OR_USERNAME,param)
             ret = row[0]
-            logging.info(ret)
             # self.db.end()
             if ret:
                 return False
@@ -39,6 +39,28 @@ class MainDb(object):
                 return True
         except :
             logging.error('get count by nickname or username from db is error.',exc_info=True)
+            return True
             # self.db.end(False)
+
+    def getUserInfoByUsername(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            row = self.db.getOne(SQL_GET_USER_PASSWORD_BY_USERNAME,param)
+            if row:
+                user_id,user_nickname,user_username,user_password,user_header,_,_ = row
+                ret = {
+                    'user_id':user_id,
+                    'user_nickname':user_nickname,
+                    'user_username':user_username,
+                    'user_password':user_password,
+                    'user_header':user_header
+                }
+            else:
+                ret = None
+            return ret
+        except :
+            logging.error('get user password by username:%s from db is error.',param[0],exc_info=True)
+            return None
 
 main_db = MainDb()

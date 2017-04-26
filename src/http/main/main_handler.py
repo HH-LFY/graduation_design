@@ -37,12 +37,48 @@ class ErrorHandler(BaseHandler):
         self.make_render('error.html')
 
 class LoginHandler(BaseHandler):
+
+    @web.asynchronous
+    def post(self):
+        t = threading.Thread(target=self.doPost)
+        t.start()
+
+    def doPost(self):
+        logging.info('-------%s start-------',__name__)
+        user_username = self.get_argument('username',None)
+        password = self.get_argument('password',None)
+        param = [user_username]
+        ret = main_db.getUserInfoByUsername(param)
+        password = self.get_md5(password)
+        if ret and password == ret.get('user_password',None):
+            self.set_secure_cookie('user_username',user_username)
+            self.set_secure_cookie('user_nickname',ret.get('user_nickname',None))
+            logging.info('user_username:%s is login in .',user_username)
+            self.redirect('/')
+        else:
+            logging.info('user_username:%s is login error ,user_username or password is error .',user_username)
+            self.make_render('login.html',
+                            code = ERROR_CODE_FOR_USERNAME_PASSWORD,
+                            code_msg = CODE_MSG[ERROR_CODE_FOR_USERNAME_PASSWORD])
+
+
     def get(self):
         self.make_render('login.html')
 
+class LoginOutHandler(BaseHandler):
+
+    @web.authenticated
+    def get(self):
+        logging.info('-------%s start-------',__name__)
+        logging.info('user_username:%s is login out .',self.get_secure_cookie('user_username'))
+        self.clear_cookie('user_username')
+        self.clear_cookie('user_nickname')
+        self.redirect('/')
+
+
 class TestHandler(BaseHandler):
     def get(self):
-        self.write('<html><a href="http://max_len1.52.235.231:40030/page_v3/wallet_free_minute.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458">http://max_len1.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458</a></html>')
+        self.write('<html><a href="http://121.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-f68f1f9f9458">http://max_len1.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458</a></html>')
 
 
 class RegisterHandler(BaseHandler):
@@ -96,6 +132,7 @@ class RegisterHandler(BaseHandler):
                 return None
             self.set_secure_cookie('user_username',username)
             self.set_secure_cookie('user_nickname',nickname)
+            logging.info('user_username:%s is login in .',self.get_secure_cookie('user_username'))
             self.redirect('/')
         except :
             logging.error('user register error.',exc_info=True)
