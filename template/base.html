@@ -52,11 +52,9 @@
                                     分类<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">美女</a></li>
-                                    <li><a href="#">风景</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">动漫</a></li>
-                                    <li class="divider"></li>
+                                    {% for x in result.get('categorys',[]) %}
+                                    <li><a href="category.html?c_id={{ x.get('c_id') }}">{{ x.get('c_name') }}</a></li>
+                                    {% end %}
                                 </ul>
                             </li>
                         </ul>

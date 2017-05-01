@@ -66,4 +66,39 @@ class ManageCategoryHandler(BaseHandler):
 
     @auth_admin
     def get(self):
-        self.make_render_admin('manage/category.html')
+
+        categorys = manage_db.getAllCategoryInfo([0,INFO_LIST_COUNT])
+        result = {
+            'categorys':categorys,
+        }
+        self.make_render_admin('manage/category.html',
+                                result=result)
+
+
+class AddCategoryHandler(BaseHandler):
+
+    @auth_admin
+    @web.asynchronous
+    def post(self):
+        t = threading.Thread(target=self.doPost)
+        t.start()
+
+    def doPost(self):
+        category_name = self.get_argument('category_name',None)
+        category_remark = self.get_argument('category_remark',None)
+        if category_name == '':
+            self.make_redirect(url='/manage/category_manage.html',
+                                code=ERROR_CATEGORY_NAME_NOT_NULL,
+                                code_msg=CODE_MSG[ERROR_CATEGORY_NAME_NOT_NULL])
+            return
+
+        ret = manage_db.insertCategory([0,category_name,category_remark])
+
+        if ret:
+            self.make_redirect(url='/manage/category_manage.html')
+        else:
+            logging.info('admin_username:%s is AddCategoryHandler error .',self.get_admin_user())
+            self.make_redirect(url='/manage/category_manage.html',
+                                code=ERROR_UNKNOW_REASON_ADD_CATEGORY_FAIL,
+                                code_msg=CODE_MSG[ERROR_UNKNOW_REASON_ADD_CATEGORY_FAIL])
+

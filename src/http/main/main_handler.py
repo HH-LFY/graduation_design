@@ -11,18 +11,39 @@ from tornado import *
 from main_const import *
 from base.base_handler import BaseHandler
 from main.main_db import main_db
+from manage.manage_db import manage_db
 
 
 
 
 class IndexHandler(BaseHandler):
+
+    @web.asynchronous
     def get(self):
+        t = threading.Thread(target=self.doGet)
+        t.start()
+
+    def doGet(self):
+        result = {
+
+        }
         self.make_render('index.html')
 
 class CategoryHandler(BaseHandler):
 
+    @web.asynchronous
     def get(self):
-        self.make_render('category.html')
+        t = threading.Thread(target=self.doGet)
+        t.start()
+
+    def doGet(self):
+        c_id = self.get_argument('c_id',1)
+        imgs = main_db.getAllImgByCategoryId([c_id,0,CATEGORY_IMG_LIST])
+        result = {
+            'imgs':imgs
+        }
+        self.make_render('category.html',
+                        result=result)
 
 class ImageDetailHandler(BaseHandler):
     def get(self):

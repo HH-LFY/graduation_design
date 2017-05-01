@@ -7,11 +7,14 @@
 SQL_INSERT_USER = "insert into s_user(user_name,user_username,user_password,user_pic_addr) values(%s,%s,%s,%s)"
 SQL_GET_USER_BY_NICKNAME_OR_USERNAME = "select count(*) from s_user where   user_name=%s or user_username=%s"
 SQL_GET_USER_PASSWORD_BY_USERNAME = "select * from s_user where user_username=%s"
+SQL_GET_ALL_IMG_INFO_BY_CATEGORY_ID = "select * from s_img where img_category_id=%s limit %s,%s"
 
 
 # admin
 SQL_GET_ADMIN_INFO_BY_ADMINNAME = "select * from s_admin where admin_username=%s"
 SQT_GET_ALL_USER_INFO = "select * from s_user limit %s,%s"
+SQL_INSERT_CATEGORY = "insert into s_category(category_pid,category_name,reserve_1) values(%s,%s,%s)"
+SQL_GET_ALL_CATEGORY_INFO = "select * from s_category limit %s,%s"
 
 # -------------------page code-------------------
 
@@ -28,7 +31,9 @@ CODE_MSG = {
 
 
     # admin login
-    4051:'登录失败！用户名或密码错误'
+    4051:'登录失败！用户名或密码错误',
+    4052:'未知的原因导致添加类别失败',
+    4053:'输入的分类名称不能为空'
 
 }
 
@@ -45,6 +50,8 @@ ERROR_CODE_FOR_USERNAME_PASSWORD = 4004
 
 # admin login
 ERROR_FOR_ADMINNAME_PASSWORD = 4051
+ERROR_UNKNOW_REASON_ADD_CATEGORY_FAIL = 4052
+ERROR_CATEGORY_NAME_NOT_NULL = 4053
 
 
 # -------------------md5 salt-------------------

@@ -63,4 +63,27 @@ class MainDb(object):
             logging.error('get user password by username:%s from db is error.',param[0],exc_info=True)
             return None
 
+    def getAllImgByCategoryId(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            rows = self.db.getAll(SQL_GET_ALL_IMG_INFO_BY_CATEGORY_ID,param)
+            rets = []
+            for row in rows:
+                img_id, img_addr, img_addr_small, img_size, img_author_id ,img_category_id, img_pv_count, img_md5, _, _ = row
+                ret = {
+                    'img_id':img_id,
+                    'img_addr':img_addr,
+                    'img_addr_small':img_addr_small,
+                    'img_size':img_size,
+                    'img_author_id':img_author_id,
+                    'img_category_id':img_category_id,
+                    'img_pv_count':img_pv_count
+                }
+                rets.append(ret)
+            return rets
+        except :
+            logging.error('get user info by admin from db is error.',exc_info=True)
+            return []
+
 main_db = MainDb()

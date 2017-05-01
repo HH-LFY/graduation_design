@@ -9,6 +9,7 @@ import hashlib
 import tornado.web
 
 from all_code import *
+from manage.manage_db import manage_db
 
 class BaseHandler(tornado.web.RequestHandler):
     """all handlers's base"""
@@ -25,8 +26,10 @@ class BaseHandler(tornado.web.RequestHandler):
         m.update(kstr)
         return m.hexdigest()
 
-    def make_render(self,template_name,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE],result=None):
+    def make_render(self,template_name,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE],result={}):
         user_nickname = self.get_secure_cookie("user_nickname",None)
+        categorys = manage_db.getAllCategoryInfo([0,100])
+        result['categorys'] = categorys
         self.render(template_name,
                     code = code,
                     code_msg = code_msg,
@@ -37,7 +40,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_admin_user(self):
         return self.get_secure_cookie("admin_username")
 
-    def make_render_admin(self,template_name,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE],result=None):
+    def make_render_admin(self,template_name,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE],result={}):
         admin_nickname = self.get_admin_user()
         self.render(template_name,
                     code = code,
@@ -45,6 +48,14 @@ class BaseHandler(tornado.web.RequestHandler):
                     result = result,
                     admin_nickname = admin_nickname)
 
+    def make_redirect(self,url,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE]):
+        alert_str = '''<script type="text/javascript">alert('错误代码：%s\\n错误原因：%s');</script>''' % (code,code_msg)
+        redirect_str = '''<script type="text/javascript"> window.location.href='%s';</script>''' % url
+        self.write(alert_str)
+        self.write(redirect_str)
+        self.finish()
+
+# 验证管理员用户
 def auth_admin(method):
     def _auth_admin(self):
         admin = self.get_secure_cookie("admin_username")

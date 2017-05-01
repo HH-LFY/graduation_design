@@ -28,7 +28,7 @@ class ManageDb(object):
                 ret = None
             return ret
         except :
-            logging.error('get admin info by admin_username:%s from db is error.',param[0],exc_info=True)
+            logging.error('get admin info by admin from db is error.',param[0],exc_info=True)
             return None
 
     def getAllUserInfo(self,param):
@@ -48,7 +48,40 @@ class ManageDb(object):
                 rets.append(ret)
             return rets
         except :
-            logging.error('get admin info by admin_username:%s from db is error.',param[0],exc_info=True)
+            logging.error('get user info by admin from db is error.',exc_info=True)
+            return []
+
+    def insertCategory(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            ret = self.db.executeOne(SQL_INSERT_CATEGORY,param)
+            if ret:
+                return True
+            else:
+                return False
+        except:
+            logging.error('unknow reason execute sql in db is error.',exc_info=True)
+            return False
+
+    def getAllCategoryInfo(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            rows = self.db.getAll(SQL_GET_ALL_CATEGORY_INFO,param)
+            rets = []
+            for row in rows:
+                c_id,c_pid,c_name,c_remark,_ = row
+                ret = {
+                    'c_id':c_id,
+                    'c_pid':c_pid,
+                    'c_name':c_name,
+                    'c_remark':c_remark
+                }
+                rets.append(ret)
+            return rets
+        except :
+            logging.error('get category info by admin from db is error.',exc_info=True)
             return []
 
 manage_db = ManageDb()
