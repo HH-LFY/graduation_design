@@ -14,15 +14,16 @@
 
 <div class="login-box">
 
-<form accept="/login.html"c>
-  <div class="login-title"><h1>管理员登录</h1></div>
-  <div class="form-group">
-    <input type="text" class="form-control" id="exampleInputUserName" placeholder="用户名">
-  </div>
-  <div class="form-group">
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
-  </div>
-  <button type="submit" class="btn btn-default">提交</button>
+<form accept="/login.html" method="post">
+    {%raw xsrf_form_html() %}
+      <div class="login-title"><h1>管理员登录</h1></div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="exampleInputUserName" name="admin_name" placeholder="用户名">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="exampleInputPassword1" name="admin_password" placeholder="密码">
+      </div>
+      <button type="submit" class="btn btn-default">提交</button>
 </form>
 
 </div>

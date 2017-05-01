@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/manage/user.css">
+
+{% end %}
+
+
+{% block content %}
+
+<div class="manage-box">
+    <div>
+        <form class="form-inline add-margin-bottom">
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="用户帐号" />
+            </div>
+            <button type="submit" class="btn btn-default">查找</button>
+        </form>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>用户id</th><th>用户真实姓名</th><th>用户帐号</th><th>用户共享图片数</th><th>用户粉丝数</th><th>最近登录时间</th><th>操作</th>
+        </tr>
+        {% for x in result.get('users',[]) %}
+        <tr>
+            <td>{{ x.get('user_id') }}</td><td>{{ x.get('user_nickname') }}</td><td>{{ x.get('user_username') }}</td><td>0</td><td>0</td><td>2017-4-16 02:16:31</td><td><a href="">查看详情</a></td>
+        </tr>
+        {% end %}
+
+    </table>
+</div>
+
+{% end %}

@@ -29,6 +29,8 @@ class ImageDetailHandler(BaseHandler):
         self.make_render('image_detail.html')
 
 class PersonalInfoHandler(BaseHandler):
+
+    @web.authenticated
     def get(self):
         self.make_render('personal_info.html')
 
