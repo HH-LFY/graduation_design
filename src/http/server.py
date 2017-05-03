@@ -26,6 +26,7 @@ def start_http_server():
 
     # tornado http 配置
     handlers = [
+        # user
         (r'/',main.IndexHandler),
         (r'/category.html',main.CategoryHandler),
         (r'/image_detail.html',main.ImageDetailHandler),
@@ -33,6 +34,9 @@ def start_http_server():
         (r'/login.html',main.LoginHandler),
         (r'/login_out',main.LoginOutHandler),
         (r'/register.html',main.RegisterHandler),
+        (r'/share_img.html',main.ShareImgHandler),
+
+        # admin
         (r'/manage_login.html',manage.ManageLoginHandler),
         (r'/manage/login_out',manage.ManageLoginOutHandler),
         (r'/manage/user_manage.html',manage.ManageUserHandler),
@@ -48,7 +52,7 @@ def start_http_server():
         static_path=static_path,
         xsrf_cookies=True,
         cookie_secret="luofengyue",
-        # debug=True,
+        debug=True,
         gzip=True,
         login_url="/login.html",
     )

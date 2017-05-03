@@ -27,6 +27,19 @@ class MainDb(object):
             return False
             # self.db.end(False)
 
+    def insertImg(self,param):
+        logging.info('-------%s start-------',__name__)
+        try:
+            ret = self.db.executeOne(SQL_INSERT_IMG,param)
+            logging.info(ret)
+            if ret :
+                return True
+            else:
+                return False
+        except:
+            logging.error('insert into img is error.',exc_info=True)
+            return False
+
     def getCountByNicknameOrUsername(self,param):
         logging.info('-------%s start-------',__name__)
         try:

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+
+{% end %}
+
+
+{% block content %}
+
+<div class="login-box">
+
+<form  method="post" enctype="multipart/form-data">
+  {%raw xsrf_form_html() %}
+  <div class="login-title"><h1>上传壁纸</h1></div>
+  <div class="form-group">
+    <label for="category">选择壁纸分类</label>
+    <select id='category' name="c_id" class="form-control">
+      {% for x in result.get('categorys',[]) %}
+      <option value="{{ x.get('c_id') }}">{{ x.get('c_name') }}</option>
+      {% end %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="img">选择尺寸</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">1200*800</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="my_img">上传壁纸</label>
+    <input type='file' name='my_img' id="my_img" />
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+</div>
+
+{% end %}
+
+
+{% block js %}
+
+{% end %}

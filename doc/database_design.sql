@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS s_category(
 -- 壁纸表 s_img
 CREATE TABLE IF NOT EXISTS s_img(
     img_id INT AUTO_INCREMENT,
-    img_addr VARCHAR(50) NOT NULL,
-    img_addr_small VARCHAR(50),
+    img_addr VARCHAR(200) NOT NULL,
+    img_addr_small VARCHAR(200),
     img_size VARCHAR(50),
     -- img_desc VARCHAR(200),
     img_author_id INT,

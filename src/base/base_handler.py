@@ -49,7 +49,15 @@ class BaseHandler(tornado.web.RequestHandler):
                     admin_nickname = admin_nickname)
 
     def make_redirect(self,url,code=SUCCESS_CODE,code_msg=CODE_MSG[SUCCESS_CODE]):
-        alert_str = '''<script type="text/javascript">alert('错误代码：%s\\n错误原因：%s');</script>''' % (code,code_msg)
+        success = False
+        if code == SUCCESS_CODE:
+            success = True
+        elif code/1000 == 2:
+            success = True
+
+        alert_str = '''<script type="text/javascript">alert('代码：%s\\n原因：%s');</script>''' % (code,code_msg)
+        if success:
+            alert_str = '''<script type="text/javascript">alert('%s');</script>''' % (code_msg)
         redirect_str = '''<script type="text/javascript"> window.location.href='%s';</script>''' % url
         self.write(alert_str)
         self.write(redirect_str)
