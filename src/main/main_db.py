@@ -40,6 +40,19 @@ class MainDb(object):
             logging.error('insert into img is error.',exc_info=True)
             return False
 
+    def insertPraiseImg(self,param):
+        logging.info('-------%s start-------',__name__)
+        try:
+            ret = self.db.executeOne(SQL_INSERT_PRAISE_IMG,param)
+            logging.info(ret)
+            if ret :
+                return True
+            else:
+                return False
+        except:
+            logging.error('insert into insertPraiseImg is error.',exc_info=True)
+            return False
+
     def getCountByNicknameOrUsername(self,param):
         logging.info('-------%s start-------',__name__)
         try:
@@ -99,4 +112,24 @@ class MainDb(object):
             logging.error('get user info by admin from db is error.',exc_info=True)
             return []
 
+    def getImgInfoByImgid(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            row = self.db.getOne(SQL_GET_IMG_BY_IMGID,param)
+            if row:
+                img_id, img_addr, img_addr_small, img_size, img_author_id ,img_category_id, img_pv_count, img_md5, _, _ = row
+                ret = {
+                    'img_id':img_id,
+                    'img_addr':img_addr,
+                    'img_addr_small':img_addr_small,
+                    'img_size':img_size,
+                    'img_author_id':img_author_id,
+                    'img_category_id':img_category_id,
+                    'img_pv_count':img_pv_count
+                }
+            return ret
+        except :
+            logging.error('get user password by username:%s from db is error.',param[0],exc_info=True)
+            return None
 main_db = MainDb()

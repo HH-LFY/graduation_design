@@ -12,16 +12,16 @@
 
 <div class="image-detail-content add-bg">
     <div class="show-image">
-        <img src="/static/image/hot/5.jpg">
+        <img src="{{ result['img']['img_addr'] }}">
     </div>
     <div class="option">
-        <button type="button" class="btn btn-default img-praise">赞</button>
-        <button type="button" class="btn btn-default img-like">收藏</button>
-        <button type="button" class="btn btn-default img-down">下载</button>
+        <button type="button" class="btn btn-default img-praise" id="img-praise" >赞</button>
+        <button type="button" class="btn btn-default img-like"   id="img-like" >收藏</button>
+        <button type="button" class="btn btn-default img-down"   id="img-down" >下载</button>
     </div>
     <div class="author-info">
-        <span>分享者:<a>admin</a></span>
-        <button class="btn btn-danger">关注</button>
+        <span>分享者:<a href="/personal_info.html?user_id={{ result['img']['img_author_id'] }}">admin</a></span>
+        <button class="btn btn-danger" id="follow-author">关注</button>
     </div>
 </div>
 
@@ -65,5 +65,14 @@
 
 
 {% block js %}
+<script type="text/javascript">
+
+DATA = {
+    'img_id':{{ result['img']['img_id'] }}
+};
+
+</script>
+
+<script type="text/javascript" src="/static/js/image_detail.js"></script>
 
 {% end %}

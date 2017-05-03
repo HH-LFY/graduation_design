@@ -43,7 +43,8 @@ class CategoryHandler(BaseHandler):
 
     def doGet(self):
         c_id = self.get_argument('c_id',1)
-        imgs = main_db.getAllImgByCategoryId([c_id,0,CATEGORY_IMG_LIST])
+        img_id = self.get_argument('img_id',0)
+        imgs = main_db.getAllImgByCategoryId([c_id,img_id,CATEGORY_IMG_LIST])
         result = {
             'imgs':imgs
         }
@@ -51,8 +52,37 @@ class CategoryHandler(BaseHandler):
                         result=result)
 
 class ImageDetailHandler(BaseHandler):
+
+    @web.asynchronous
     def get(self):
-        self.make_render('image_detail.html')
+        t = threading.Thread(target=self.doGet)
+        t.start()
+
+    def doGet(self):
+        img_id = self.get_argument('img_id',1)
+        img = main_db.getImgInfoByImgid([img_id])
+        result = {
+            'img': img
+        }
+        self.make_render('image_detail.html',
+                        result=result)
+
+class PraiseImgHandler(BaseHandler):
+
+    @web.asynchronous
+    def get(self):
+        t = threading.Thread(target=self.doGet)
+        t.start()
+
+    def doGet(self):
+        user_id = self.get_secure_cookie('user_id')
+        img_id = self.get_argument('img_id',1)
+        ret = main_db.insertPraiseImg([user_id,img_id])
+        result = ''
+        if not ret:
+            result = '你不能重复进行点赞'
+        self.write(result)
+        self.finish()
 
 class PersonalInfoHandler(BaseHandler):
 
@@ -104,24 +134,6 @@ class ShareImgHandler(BaseHandler):
             self.make_redirect('/share_img.html',
                                 code=ERROR_CODE_UNKNOW_REASON,
                                 code_msg=CODE_MSG[ERROR_CODE_UNKNOW_REASON])
-
-# for img in imgfile:
-#       # 对文件进行重命名
-#       name = str(time.strftime('%Y%m%d%'), time.localtime())\
-#           + '_' + self.current_user + '_headimg.png'
-
-#       with open('./static/uploads/' + name, 'wb') as f:
-#         # image有多种打开方式，一种是 Image.open('xx.png')
-#         # 另一种就是 Image.open(StringIO(buffer))
-#         im = Image.open(StringIO(img['body']))
-#         # 修改图片大小resize接受两个参数, 第一个是宽高的元组数据,第二个是对图片细节的处理，本文表示抗锯齿
-#         im = im.resize((72, 72), Image.ANTIALIAS)
-#         # 打开io 就像文件一样
-#         im_file = StringIO()
-#         im.save(im_file, format='png')
-#         # 这是获取io中的内容
-#         im_data = im_file.getvalue()
-#         f.write(im_data)
 
     @web.authenticated
     def get(self):
