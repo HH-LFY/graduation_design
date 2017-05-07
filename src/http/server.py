@@ -35,7 +35,7 @@ def start_http_server():
         (r'/login_out',main.LoginOutHandler),
         (r'/register.html',main.RegisterHandler),
         (r'/share_img.html',main.ShareImgHandler),
-        (r'/praise_img',main.PraiseImgHandler),
+        (r'/op_img',main.OpImgHandler),
 
         # admin
         (r'/manage_login.html',manage.ManageLoginHandler),

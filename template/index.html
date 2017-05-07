@@ -90,31 +90,23 @@
 </div>
 <div class="box-img">
     <ul class="img-list">
+        {% for i in xrange(len(result.get('new_imgs'))) %}
+        {% if i%2 == 0 %}
         <li class="add-margin-right add-margin-bottom">
-            <a href="">
-                <img src="/static/image/hot/2.png">
-                <span class="add-item-praise">0</span>
+            <a href="/image_detail.html?img_id={{ result['new_imgs'][i].get('img_id') }}">
+                <img src="{{ result['new_imgs'][i].get('img_addr_small') }}">
+                <span class="add-item-praise">{{ result['new_imgs'][i].get('praise_num',0) }}</span>
             </a>
         </li>
+        {% else %}
         <li class="add-margin-bottom">
-            <a href="">
-                <img src="/static/image/hot/3.jpg">
-                <span class="add-item-praise">0</span>
+            <a href="/image_detail.html?img_id={{ result['new_imgs'][i].get('img_id') }}"">
+                <img src="{{ result['new_imgs'][i].get('img_addr_small') }}">
+                <span class="add-item-praise">{{ result['new_imgs'][i].get('praise_num',0) }}</span>
             </a>
         </li>
-        <li class="add-margin-right add-margin-bottom">
-            <a href="">
-                <img src="/static/image/hot/1.jpg">
-                <span class="add-item-praise">0</span>
-            </a>
-        </li>
-        <li class="add-margin-bottom">
-            <a href="">
-                <img src="/static/image/hot/5.jpg">
-                <span class="add-item-praise">0</span>
-            </a>
-        </li>
-
+        {% end %}
+        {% end %}
     </ul>
 </div>
 

@@ -110,7 +110,8 @@ CREATE TABLE IF NOT EXISTS s_img_collet(
     reserve_1 VARCHAR(50),
     reserve_2 VARCHAR(50),
     FOREIGN KEY(img_id) REFERENCES s_img(img_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(user_id) REFERENCES s_user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(user_id) REFERENCES s_user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(img_id,user_id)
 );
 
 -- 用户关注用户表 s_user_follow

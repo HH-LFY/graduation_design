@@ -12,7 +12,21 @@ select *
 from s_img as a
 where a.img_category_id=%s and
 a.img_id > %s
-limit %s'''
+limit %s
+'''
+
+SQL_GET_IMG_BY_DATE = '''
+select *
+from s_img
+order by img_id desc
+'''
+
+SQL_GET_IMG_PRAISE_NUM = '''
+select count(user_id)
+from s_img_praise
+where img_id in (%s)
+group by img_id
+'''
 
 # user-img
 SQL_INSERT_IMG = "insert into s_img(img_addr,img_addr_small,img_size,img_author_id,img_category_id,img_md5,img_pv_count) values(%s,%s,%s,%s,%s,%s,%s)"
@@ -22,6 +36,11 @@ select * from s_img where img_id = %s
 SQL_INSERT_PRAISE_IMG = '''
 insert into s_img_praise(user_id,img_id) values(%s,%s)
 '''
+
+SQL_INSERT_COLLET_IMG = '''
+insert into s_img_collet(user_id,img_id) values(%s,%s)
+'''
+
 
 # admin
 SQL_GET_ADMIN_INFO_BY_ADMINNAME = "select * from s_admin where admin_username=%s"

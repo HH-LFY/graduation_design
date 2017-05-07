@@ -29,10 +29,12 @@ class IndexHandler(BaseHandler):
         t.start()
 
     def doGet(self):
+        new_imgs = main_db.getImgInfoByDate()
         result = {
-
+            'new_imgs': new_imgs
         }
-        self.make_render('index.html')
+        self.make_render('index.html',
+                        result=result)
 
 class CategoryHandler(BaseHandler):
 
@@ -67,7 +69,7 @@ class ImageDetailHandler(BaseHandler):
         self.make_render('image_detail.html',
                         result=result)
 
-class PraiseImgHandler(BaseHandler):
+class OpImgHandler(BaseHandler):
 
     @web.asynchronous
     def get(self):
@@ -75,12 +77,29 @@ class PraiseImgHandler(BaseHandler):
         t.start()
 
     def doGet(self):
-        user_id = self.get_secure_cookie('user_id')
+        user_id = self.get_secure_cookie('user_id',None)
+        if user_id is None:
+            result = '请先登录再进行操作'
+            self.write(result)
+            self.finish()
+            return
+        op = self.get_argument('op','').encode('utf-8')
+        logging.info(op)
         img_id = self.get_argument('img_id',1)
-        ret = main_db.insertPraiseImg([user_id,img_id])
+        if op == '点赞':
+            ret = main_db.insertPraiseImg([user_id,img_id])
+        elif op == '收藏':
+            ret = main_db.insertColletImg([user_id,img_id])
+        else:
+            result = '未知的操作'
+            self.write(result)
+            self.finish()
+            return
         result = ''
         if not ret:
-            result = '你不能重复进行点赞'
+            result = '你不能重复进行%s' % op
+        else:
+            result = '%s成功' % op
         self.write(result)
         self.finish()
 
@@ -188,12 +207,6 @@ class LoginOutHandler(BaseHandler):
         self.clear_cookie('user_username')
         self.clear_cookie('user_nickname')
         self.redirect('/')
-
-
-class TestHandler(BaseHandler):
-    def get(self):
-        self.write('<html><a href="http://121.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-f68f1f9f9458">http://max_len1.52.235.231:40030/page_v3/wallet_coin.html?_token=98890ded-3fc2-4f19-8d09-fmin_len8f1f9f9458</a></html>')
-
 
 class RegisterHandler(BaseHandler):
 
