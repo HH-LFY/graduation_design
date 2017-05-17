@@ -26,7 +26,7 @@
         </tr>
         {% for x in result.get('categorys',[]) %}
         <tr>
-            <td>{{ x.get('c_id') }}</td><td>{{ x.get('c_pid') }}</td><td>{{ x.get('c_name') }}</td><td>{{ x.get('c_remark') }}</td><td><a href="">删除</a></td>
+            <td>{{ x.get('category_id') }}</td><td>{{ x.get('category_pid') }}</td><td>{{ x.get('category_name') }}</td><td>{{ x.get('reserve_1','无') }}</td><td><a href="">删除</a></td>
         </tr>
         {% end %}
     </table>

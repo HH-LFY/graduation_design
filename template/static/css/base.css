@@ -247,8 +247,8 @@ p{
 }
 
 .manage-box{
-    width: 60rem;
-    height: 51.8rem;
+    width: 100rem;
+    /*height: 51.8rem;*/
     padding-top: 5rem;
     padding-left: 1rem;
 }

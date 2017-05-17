@@ -93,11 +93,12 @@ CREATE TABLE IF NOT EXISTS s_img_praise(
 
 -- 壁纸feed流 s_img_feed
 CREATE TABLE IF NOT EXISTS s_img_feed(
-    feed_id INT,
+    feed_id INT AUTO_INCREMENT,
     feed_type VARCHAR(50),
     img_id INT,
     reserve_1 VARCHAR(50),
     reserve_2 VARCHAR(50),
+    PRIMARY KEY(feed_id),
     FOREIGN KEY(img_id) REFERENCES s_img(img_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

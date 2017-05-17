@@ -38,7 +38,8 @@ class MysqlConnection(object):
             self.cursor.execute(sql)
         else:
             self.cursor.execute(sql,param)
-        return self.cursor.fetchone()
+        row = self.cursor.fetchone()
+        return row
 
     # 查询多条语句
     def getAll(self,sql,param=None):
@@ -46,7 +47,21 @@ class MysqlConnection(object):
             self.cursor.execute(sql)
         else:
             self.cursor.execute(sql,param)
-        return self.cursor.fetchall()
+        rows = self.cursor.fetchall()
+        if rows:
+            rows = list(rows)
+        return rows
+
+    def getAllUseIn(self,sql,param=None):
+        len_s = ','.join(['%s'] * len(param))
+        sql = sql % len_s
+
+        self.cursor.execute(sql,param)
+
+        rows = self.cursor.fetchall()
+        if rows:
+            rows = list(rows)
+        return rows
 
     # 执行一条语句
     def executeOne(self,sql,param=None):

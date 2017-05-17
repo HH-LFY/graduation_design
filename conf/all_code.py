@@ -19,6 +19,15 @@ SQL_GET_IMG_BY_DATE = '''
 select *
 from s_img
 order by img_id desc
+limit 4
+'''
+
+SQL_GET_IMG_MAX_PRAISE_NUM = '''
+select img_id,count(user_id) as num
+from s_img_praise
+group by img_id
+order by num desc
+limit 4
 '''
 
 SQL_GET_IMG_PRAISE_NUM = '''
@@ -28,11 +37,20 @@ where img_id in (%s)
 group by img_id
 '''
 
+SQL_GET_IMG_BY_MANY_IMGID = '''
+select *
+from s_img
+where img_id in (%s)
+limit 3
+'''
+
+
 # user-img
 SQL_INSERT_IMG = "insert into s_img(img_addr,img_addr_small,img_size,img_author_id,img_category_id,img_md5,img_pv_count) values(%s,%s,%s,%s,%s,%s,%s)"
 SQL_GET_IMG_BY_IMGID = '''
 select * from s_img where img_id = %s
 '''
+
 SQL_INSERT_PRAISE_IMG = '''
 insert into s_img_praise(user_id,img_id) values(%s,%s)
 '''
@@ -41,12 +59,49 @@ SQL_INSERT_COLLET_IMG = '''
 insert into s_img_collet(user_id,img_id) values(%s,%s)
 '''
 
+SQL_GET_CATEGORY_BY_CATEGORY_ID = '''
+select *
+from s_category
+where category_id = %s
+'''
+SQL_GET_IMG_FOR_FEED = '''
+select * from s_img as a,s_img_feed as b where a.img_id=b.img_id
+'''
+
+SQL_UPDATE_IMG_PV = '''
+update s_img set img_pv_count=img_pv_count+1 where img_id=%s
+'''
+
+SQL_GET_IMG_MAX_PV = '''
+select * from s_img order by img_pv_count desc limit 3
+'''
 
 # admin
 SQL_GET_ADMIN_INFO_BY_ADMINNAME = "select * from s_admin where admin_username=%s"
 SQT_GET_ALL_USER_INFO = "select * from s_user limit %s,%s"
 SQL_INSERT_CATEGORY = "insert into s_category(category_pid,category_name,reserve_1) values(%s,%s,%s)"
 SQL_GET_ALL_CATEGORY_INFO = "select * from s_category limit %s,%s"
+SQL_GET_ALL_IMG = '''
+select * from s_img
+where img_id>%s
+limit %s
+'''
+SQL_DELETE_IMG_BY_IMGID = '''
+delete from s_img where img_id=%s
+'''
+
+SQL_RECOMMEND_IMG_BY_IMGID = '''
+insert into s_img_feed(img_id) values(%s)
+'''
+
+SQL_CANCEL_RECOMMEND_IMG_BY_IMGID = '''
+delete from s_img_feed where img_id=%s
+'''
+SQL_GET_IMG_RECOMMEND = '''
+select feed_id as judge
+from s_img_feed
+where img_id=%s limit 1
+'''
 
 # -------------------page code-------------------
 

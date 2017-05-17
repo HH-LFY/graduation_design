@@ -18,7 +18,7 @@
     <label for="category">选择壁纸分类</label>
     <select id='category' name="c_id" class="form-control">
       {% for x in result.get('categorys',[]) %}
-      <option value="{{ x.get('c_id') }}">{{ x.get('c_name') }}</option>
+      <option value="{{ x.get('category_id') }}">{{ x.get('category_name') }}</option>
       {% end %}
     </select>
   </div>

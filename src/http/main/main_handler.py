@@ -30,9 +30,16 @@ class IndexHandler(BaseHandler):
 
     def doGet(self):
         new_imgs = main_db.getImgInfoByDate()
+        month_max_imgs = main_db.getMonthMaxImg()
+        feed_imgs = main_db.getFeedImg()
+        pv_max_imgs = main_db.getPvMaxIMg()
         result = {
-            'new_imgs': new_imgs
+            'new_imgs': new_imgs,
+            'month_max_imgs':month_max_imgs,
+            'feed_imgs':feed_imgs,
+            'pv_max_imgs':pv_max_imgs
         }
+        logging.debug(result)
         self.make_render('index.html',
                         result=result)
 
@@ -47,9 +54,12 @@ class CategoryHandler(BaseHandler):
         c_id = self.get_argument('c_id',1)
         img_id = self.get_argument('img_id',0)
         imgs = main_db.getAllImgByCategoryId([c_id,img_id,CATEGORY_IMG_LIST])
+        now_catrgory = main_db.getCategoryByCategoryId([c_id])
         result = {
-            'imgs':imgs
+            'imgs':imgs,
+            'now_catrgory': now_catrgory
         }
+        logging.info(result)
         self.make_render('category.html',
                         result=result)
 
@@ -143,7 +153,10 @@ class ShareImgHandler(BaseHandler):
             img_pv_count = 0
             logging.debug(img_addr)
 
-            main_db.insertImg([img_addr,img_addr_small,img_size,img_author_id,img_category_id,img_md5,img_pv_count])
+            res = main_db.insertImg([img_addr,img_addr_small,img_size,img_author_id,img_category_id,img_md5,img_pv_count])
+
+            if res is None:
+                raise False
 
             self.make_redirect('/share_img.html',
                                 code=SUCCESS_SHARE_IMG,
@@ -184,7 +197,7 @@ class LoginHandler(BaseHandler):
             user_id = ret.get('user_id',None)
             self.set_secure_cookie('user_username',user_username)
             self.set_secure_cookie('user_id',str(user_id))
-            self.set_secure_cookie('user_nickname',ret.get('user_nickname',None))
+            self.set_secure_cookie('user_nickname',ret.get('user_name',None))
             logging.info('user_username:%s is login in .',user_username)
             self.redirect('/')
         else:

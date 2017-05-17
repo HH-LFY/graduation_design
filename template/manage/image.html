@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/manage/user.css">
+
+{% end %}
+
+
+{% block content %}
+
+<div class="manage-box">
+    <table class="table table-hover">
+        <tr>
+            <th>壁纸id</th><th>壁纸预览</th><th>壁纸作者id</th><th>壁纸所属分类id</th><th>壁纸pv数量</th><th>壁纸被点赞数量</th><th>操作</th>
+        </tr>
+        {% for x in result.get('imgs',[]) %}
+        <tr>
+            <td>{{ x.get('img_id') }}</td><td><img style="width: 10rem;" src="{{ x.get('img_addr_small') }}"></td><td>{{ x.get('img_author_id') }}</td><td>{{ x.get('img_category_id','0') }}</td><td>{{ x.get('img_pv_count','0') }}</td><td>{{ x.get('praise_num','0') }}</td><td><p><a href="/manage/img_op?op=del_img&img_id={{ x.get('img_id') }}">删除</a></p>
+            {% if x.get('recommend') is None %}
+            <p><a href="/manage/img_op?op=recommend_img&img_id={{ x.get('img_id') }}">推荐至首页轮播</a></p>
+            {% else %}
+            <p><a href="/manage/img_op?op=cancel_recommend_img&img_id={{ x.get('img_id') }}">取消推荐</a></p>
+            {% end %}
+            </td>
+        </tr>
+        {% end %}
+    </table>
+</div>
+
+{% end %}

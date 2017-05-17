@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "start stop http"
+echo "start http"
 
 python start_server.py stop
 

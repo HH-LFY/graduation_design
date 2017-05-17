@@ -87,18 +87,7 @@ class MainDb(object):
         logging.info('param:%s',param)
         try:
             row = self.db.getOne(SQL_GET_USER_PASSWORD_BY_USERNAME,param)
-            if row:
-                user_id,user_nickname,user_username,user_password,user_header,_,_ = row
-                ret = {
-                    'user_id':user_id,
-                    'user_nickname':user_nickname,
-                    'user_username':user_username,
-                    'user_password':user_password,
-                    'user_header':user_header
-                }
-            else:
-                ret = None
-            return ret
+            return row
         except :
             logging.error('get user password by username:%s from db is error.',param[0],exc_info=True)
             return None
@@ -108,23 +97,11 @@ class MainDb(object):
         logging.info('param:%s',param)
         try:
             rows = self.db.getAll(SQL_GET_ALL_IMG_INFO_BY_CATEGORY_ID,param)
-            rets = []
-            for row in rows:
-                img_id, img_addr, img_addr_small, img_size, img_author_id ,img_category_id, img_pv_count, img_md5, _, _ = row
-                ret = {
-                    'img_id':img_id,
-                    'img_addr':img_addr,
-                    'img_addr_small':img_addr_small,
-                    'img_size':img_size,
-                    'img_author_id':img_author_id,
-                    'img_category_id':img_category_id,
-                    'img_pv_count':img_pv_count
-                }
-                rets.append(ret)
-            return rets
+            ret = self.__getPraiseNum(rows)
+            return ret
         except :
             logging.error('get user info by admin from db is error.',exc_info=True)
-            return []
+            return {}
 
     def getImgInfoByImgid(self,param):
         logging.info('-------%s start-------',__name__)
@@ -132,18 +109,10 @@ class MainDb(object):
         try:
             row = self.db.getOne(SQL_GET_IMG_BY_IMGID,param)
             if row:
-                img_id, img_addr, img_addr_small, img_size, img_author_id ,img_category_id, img_pv_count, img_md5, _, _ = row
-                ret = {
-                    'img_id':img_id,
-                    'img_addr':img_addr,
-                    'img_addr_small':img_addr_small,
-                    'img_size':img_size,
-                    'img_author_id':img_author_id,
-                    'img_category_id':img_category_id,
-                    'img_pv_count':img_pv_count,
-                    'img_name':os.path.split(img_addr)[1]
-                }
-            return ret
+                img_addr = row['img_addr']
+                row['img_name'] = os.path.split(img_addr)[1]
+                self.db.executeOne(SQL_UPDATE_IMG_PV,[row['img_id']])
+            return row
         except :
             logging.error('get user password by username:%s from db is error.',param[0],exc_info=True)
             return None
@@ -152,25 +121,67 @@ class MainDb(object):
         logging.info('-------%s start-------',__name__)
         try:
             rows = self.db.getAll(SQL_GET_IMG_BY_DATE)
-            ret = []
-            for row in rows:
-                img_id, img_addr, img_addr_small, img_size, img_author_id ,img_category_id, img_pv_count, img_md5, _, _ = row
-                item = {
-                    'img_id':img_id,
-                    'img_addr':img_addr,
-                    'img_addr_small':img_addr_small,
-                    'img_size':img_size,
-                    'img_author_id':img_author_id,
-                    'img_category_id':img_category_id,
-                    'img_pv_count':img_pv_count
-                }
-                # 获取赞数
-                x = self.db.getOne(SQL_GET_IMG_PRAISE_NUM,[img_id])
-                if x:
-                    item['praise_num'] = x[0]
-                ret.append(item)
+            logging.debug(rows)
+            ret = self.__getPraiseNum(rows)
             return ret
         except :
             logging.error('getImgInfoByDate from db is error.',exc_info=True)
             return None
+
+
+    def getMonthMaxImg(self):
+        logging.info('-------%s start-------',__name__)
+        try:
+            rows = self.db.getAll(SQL_GET_IMG_MAX_PRAISE_NUM)
+            ret = []
+            for k in rows:
+                ret.append(k['img_id'])
+            rows = self.db.getAllUseIn(SQL_GET_IMG_BY_MANY_IMGID,ret)
+            ret = self.__getPraiseNum(rows)
+            return rows
+        except :
+            logging.error('getMonthMaxImg from db is error.',exc_info=True)
+            return None
+
+    def getPvMaxIMg(self):
+        logging.info('-------%s start-------',__name__)
+        try:
+            rows = self.db.getAll(SQL_GET_IMG_MAX_PV)
+            ret = self.__getPraiseNum(rows)
+            return rows
+        except :
+            logging.error('getPvMaxIMg from db is error.',exc_info=True)
+            return None
+
+    def __getPraiseNum(self,rows):
+        ret = []
+        for i in xrange(len(rows)):
+            img_id = rows[i]['img_id']
+            # logging.debug('img_id:%s',img_id)
+            x = self.db.getOne(SQL_GET_IMG_PRAISE_NUM,[img_id])
+            # logging.debug('x:%s',x)
+            if x:
+                rows[i]['praise_num'] = x['count(user_id)']
+            ret.append(rows[i])
+        return ret
+
+    def getCategoryByCategoryId(self,param):
+        logging.info('-------%s start-------',__name__)
+        try:
+            row = self.db.getOne(SQL_GET_CATEGORY_BY_CATEGORY_ID,param)
+            return row
+        except :
+            logging.error('getCategoryByCategoryId from db is error.',exc_info=True)
+            return None
+
+    def getFeedImg(self):
+        logging.info('-------%s start-------',__name__)
+        try:
+            row = self.db.getAll(SQL_GET_IMG_FOR_FEED)
+            return row
+        except :
+            logging.error('getFeedImg from db is error.',exc_info=True)
+            return None
+
+
 main_db = MainDb()

@@ -23,7 +23,7 @@ class ManageLoginHandler(BaseHandler):
         password = self.get_md5(password)
         if ret and password == ret.get('admin_password',None):
             self.set_secure_cookie('admin_username',admin_username)
-            self.set_secure_cookie('admin_nickname',ret.get('admin_nickname',None))
+            self.set_secure_cookie('admin_nickname',ret.get('admin_name',None))
             logging.info('admin_username:%s is login in .',admin_username)
             self.redirect('/manage/user_manage.html')
         else:
@@ -60,7 +60,34 @@ class ManageImgHandler(BaseHandler):
 
     @auth_admin
     def get(self):
-        self.make_render_admin('manage/image.html')
+
+        last_img_id = self.get_argument('last_img_id','0')
+
+        imgs = manage_db.getAllImg([last_img_id,INFO_LIST_COUNT])
+        result = {
+            'imgs':imgs
+        }
+
+        logging.debug(result)
+        self.make_render_admin('manage/image.html',
+                                result=result)
+
+class ManageImgOpHandler(BaseHandler):
+
+    @auth_admin
+    def get(self):
+
+        img_id = self.get_argument('img_id',None)
+        op = self.get_argument('op',None)
+        manage_db.opImg(op,img_id)
+        imgs = manage_db.getAllImg([0,INFO_LIST_COUNT])
+        result = {
+            'imgs':imgs
+        }
+
+        logging.debug(result)
+        self.make_render_admin('manage/image.html',
+                                result=result)
 
 class ManageCategoryHandler(BaseHandler):
 

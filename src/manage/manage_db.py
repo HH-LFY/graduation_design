@@ -16,17 +16,7 @@ class ManageDb(object):
         logging.info('param:%s',param)
         try:
             row = self.db.getOne(SQL_GET_ADMIN_INFO_BY_ADMINNAME,param)
-            if row:
-                admin_id,admin_nickname,admin_username,admin_password,_,_ = row
-                ret = {
-                    'admin_id':admin_id,
-                    'admin_nickname':admin_nickname,
-                    'admin_username':admin_username,
-                    'admin_password':admin_password,
-                }
-            else:
-                ret = None
-            return ret
+            return row
         except :
             logging.error('get admin info by admin from db is error.',param[0],exc_info=True)
             return None
@@ -36,17 +26,7 @@ class ManageDb(object):
         logging.info('param:%s',param)
         try:
             rows = self.db.getAll(SQT_GET_ALL_USER_INFO,param)
-            rets = []
-            for row in rows:
-                user_id,user_nickname,user_username,user_password,_,_,_ = row
-                ret = {
-                    'user_id':user_id,
-                    'user_nickname':user_nickname,
-                    'user_username':user_username,
-                    'user_password':user_password,
-                }
-                rets.append(ret)
-            return rets
+            return rows
         except :
             logging.error('get user info by admin from db is error.',exc_info=True)
             return []
@@ -56,10 +36,7 @@ class ManageDb(object):
         logging.info('param:%s',param)
         try:
             ret = self.db.executeOne(SQL_INSERT_CATEGORY,param)
-            if ret:
-                return True
-            else:
-                return False
+            return ret
         except:
             logging.error('unknow reason execute sql in db is error.',exc_info=True)
             return False
@@ -69,19 +46,49 @@ class ManageDb(object):
         logging.info('param:%s',param)
         try:
             rows = self.db.getAll(SQL_GET_ALL_CATEGORY_INFO,param)
-            rets = []
-            for row in rows:
-                c_id,c_pid,c_name,c_remark,_ = row
-                ret = {
-                    'c_id':c_id,
-                    'c_pid':c_pid,
-                    'c_name':c_name,
-                    'c_remark':c_remark
-                }
-                rets.append(ret)
-            return rets
+            return rows
         except :
             logging.error('get category info by admin from db is error.',exc_info=True)
             return []
+
+    def getAllImg(self,param):
+        logging.info('-------%s start-------',__name__)
+        logging.info('param:%s',param)
+        try:
+            rows = self.db.getAll(SQL_GET_ALL_IMG,param)
+            ret = self.__getPraiseNumAndRecommend(rows)
+            return rows
+        except :
+            logging.error('get category info by admin from db is error.',exc_info=True)
+            return []
+
+    def opImg(self,op,img_id):
+        logging.info('-------%s start-------',__name__)
+        try:
+            ret = False
+            if op=='del_img':
+                ret = self.db.executeOne(SQL_DELETE_IMG_BY_IMGID,img_id)
+            elif op=='recommend_img':
+                if self.db.getOne(SQL_GET_IMG_RECOMMEND,[img_id]) is None:
+                    ret = self.db.executeOne(SQL_RECOMMEND_IMG_BY_IMGID,img_id)
+            elif op=='cancel_recommend_img':
+                ret = self.db.executeOne(SQL_CANCEL_RECOMMEND_IMG_BY_IMGID,img_id)
+            return ret
+        except:
+            logging.error('unknow reason execute sql in db is error.',exc_info=True)
+            return False
+
+    def __getPraiseNumAndRecommend(self,rows):
+        ret = []
+        for i in xrange(len(rows)):
+            img_id = rows[i]['img_id']
+            x = self.db.getOne(SQL_GET_IMG_PRAISE_NUM,[img_id])
+            if x:
+                rows[i]['praise_num'] = x['count(user_id)']
+            x = self.db.getOne(SQL_GET_IMG_RECOMMEND,[img_id])
+            if x:
+                rows[i]['recommend'] = bool(x['judge'])
+            ret.append(rows[i])
+        return ret
 
 manage_db = ManageDb()
