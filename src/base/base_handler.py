@@ -73,3 +73,13 @@ def auth_admin(method):
             logging.info('%s is authed.',admin)
             return method(self)
     return _auth_admin
+
+def auth_user(method):
+    def _auth_user(self):
+        user = self.get_secure_cookie('user_username')
+        if not user:
+            self.redirect('/login.html')
+        else:
+            logging.info('%s is authed.',user)
+            return method(self)
+    return _auth_user

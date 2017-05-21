@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/manage/user.css">
+
+{% end %}
+
+
+{% block content %}
+
+<div class="manage-box">
+    <table class="table table-hover">
+        <tr>
+            <th>评论id</th><th>图片id</th><th>评论用户</th><th>评论内容</th><th>评论时间</th>
+        </tr>
+        {% for x in result.get('discuss',[]) %}
+        <tr>
+            <td>{{ x.get('discuss_id') }}</td><td>{{ x.get('img_id') }}</td><td>{{ x.get('user_name') }}</td><td>{{ x.get('discuss_content','无') }}</td><td>{{ x.get('discuss_date','无') }}</td>
+        </tr>
+        {% end %}
+    </table>
+</div>
+
+{% end %}

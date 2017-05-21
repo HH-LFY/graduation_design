@@ -183,5 +183,26 @@ class MainDb(object):
             logging.error('getFeedImg from db is error.',exc_info=True)
             return None
 
+    def insertDiscuss(self,param):
+        logging.info('-------%s start-------',__name__)
+        try:
+            ret = self.db.executeOne(SQL_INSERT_DISCUSS,param)
+            logging.info(ret)
+            if ret :
+                return True
+            else:
+                return False
+        except:
+            logging.error('insert into insertDiscuss is error.',exc_info=True)
+            return False
+
+    def getDiscussByImgid(self,param):
+        logging.info('-------%s start-------',__name__)
+        try:
+            rows = self.db.getAll(SQL_GET_IMG_DISSCUSS_BY_IMGID,param)
+            return rows
+        except :
+            logging.error('getDiscussByImgid from db is error.',exc_info=True)
+            return None
 
 main_db = MainDb()

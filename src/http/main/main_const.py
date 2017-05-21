@@ -6,4 +6,4 @@
 
 
 # -------------------const-------------------
-CATEGORY_IMG_LIST = 8
+CATEGORY_IMG_LIST = 20

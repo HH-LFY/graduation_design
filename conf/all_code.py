@@ -27,7 +27,7 @@ select img_id,count(user_id) as num
 from s_img_praise
 group by img_id
 order by num desc
-limit 4
+limit 3
 '''
 
 SQL_GET_IMG_PRAISE_NUM = '''
@@ -42,6 +42,17 @@ select *
 from s_img
 where img_id in (%s)
 limit 3
+'''
+
+SQL_INSERT_DISCUSS = '''
+insert into s_discuss(img_id,user_id,user_name,discuss_content,discuss_date)
+values(%s,%s,%s,%s,now());
+'''
+
+SQL_GET_IMG_DISSCUSS_BY_IMGID = '''
+select * from
+s_discuss
+where img_id = %s
 '''
 
 
@@ -101,6 +112,11 @@ SQL_GET_IMG_RECOMMEND = '''
 select feed_id as judge
 from s_img_feed
 where img_id=%s limit 1
+'''
+
+SQL_GET_DISCUSS = '''
+select * from
+s_discuss
 '''
 
 # -------------------page code-------------------

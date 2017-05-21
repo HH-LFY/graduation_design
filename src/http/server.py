@@ -36,6 +36,7 @@ def start_http_server():
         (r'/register.html',main.RegisterHandler),
         (r'/share_img.html',main.ShareImgHandler),
         (r'/op_img',main.OpImgHandler),
+        (r'/add_disscuss',main.AddDisscussHandler),
 
         # admin
         (r'/manage_login.html',manage.ManageLoginHandler),
@@ -45,6 +46,8 @@ def start_http_server():
         (r'/manage/img_op',manage.ManageImgOpHandler),
         (r'/manage/category_manage.html',manage.ManageCategoryHandler),
         (r'/manage/category_manage/add',manage.AddCategoryHandler),
+        (r'/manage/discuss_manage.html',manage.ManageDiscussHandler),
+        # (r'/manage/discuss_manage/op',manage.ManageDiscussHandler),
         # (r'/.*',main.TestHandler),
         (r'/.*',main.ErrorHandler)
     ]

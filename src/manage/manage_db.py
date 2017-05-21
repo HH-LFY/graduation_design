@@ -67,12 +67,14 @@ class ManageDb(object):
         try:
             ret = False
             if op=='del_img':
-                ret = self.db.executeOne(SQL_DELETE_IMG_BY_IMGID,img_id)
+                ret = self.db.executeOne(SQL_DELETE_IMG_BY_IMGID,[img_id])
             elif op=='recommend_img':
                 if self.db.getOne(SQL_GET_IMG_RECOMMEND,[img_id]) is None:
-                    ret = self.db.executeOne(SQL_RECOMMEND_IMG_BY_IMGID,img_id)
+                    ret = self.db.executeOne(SQL_RECOMMEND_IMG_BY_IMGID,[img_id])
+                else:
+                    logging.error('the img already recommend_img.')
             elif op=='cancel_recommend_img':
-                ret = self.db.executeOne(SQL_CANCEL_RECOMMEND_IMG_BY_IMGID,img_id)
+                ret = self.db.executeOne(SQL_CANCEL_RECOMMEND_IMG_BY_IMGID,[img_id])
             return ret
         except:
             logging.error('unknow reason execute sql in db is error.',exc_info=True)
@@ -90,5 +92,14 @@ class ManageDb(object):
                 rows[i]['recommend'] = bool(x['judge'])
             ret.append(rows[i])
         return ret
+
+    def getAllDiscussInfo(self):
+        logging.info('-------%s start-------',__name__)
+        try:
+            rows = self.db.getAll(SQL_GET_DISCUSS)
+            return rows
+        except :
+            logging.error('get getAllDiscussInfo info by admin from db is error.',exc_info=True)
+            return []
 
 manage_db = ManageDb()

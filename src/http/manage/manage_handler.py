@@ -79,6 +79,7 @@ class ManageImgOpHandler(BaseHandler):
 
         img_id = self.get_argument('img_id',None)
         op = self.get_argument('op',None)
+        logging.info(img_id)
         manage_db.opImg(op,img_id)
         imgs = manage_db.getAllImg([0,INFO_LIST_COUNT])
         result = {
@@ -128,4 +129,15 @@ class AddCategoryHandler(BaseHandler):
             self.make_redirect(url='/manage/category_manage.html',
                                 code=ERROR_UNKNOW_REASON_ADD_CATEGORY_FAIL,
                                 code_msg=CODE_MSG[ERROR_UNKNOW_REASON_ADD_CATEGORY_FAIL])
+
+class ManageDiscussHandler(BaseHandler):
+    @auth_admin
+    def get(self):
+
+        discuss = manage_db.getAllDiscussInfo()
+        result = {
+            'discuss':discuss,
+        }
+        self.make_render_admin('manage/discuss.html',
+                                result=result)
 

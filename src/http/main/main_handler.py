@@ -14,7 +14,7 @@ from all_code import *
 from tornado import *
 from main_const import *
 from conf import *
-from base.base_handler import BaseHandler
+from base.base_handler import *
 from main.main_db import main_db
 from manage.manage_db import manage_db
 
@@ -73,9 +73,12 @@ class ImageDetailHandler(BaseHandler):
     def doGet(self):
         img_id = self.get_argument('img_id',1)
         img = main_db.getImgInfoByImgid([img_id])
+        discuss = main_db.getDiscussByImgid([img_id])
         result = {
-            'img': img
+            'img': img,
+            'discuss':discuss
         }
+        logging.info(result)
         self.make_render('image_detail.html',
                         result=result)
 
@@ -113,6 +116,29 @@ class OpImgHandler(BaseHandler):
         self.write(result)
         self.finish()
 
+class AddDisscussHandler(BaseHandler):
+
+    @auth_user
+    @web.asynchronous
+    def post(self):
+        logging.info('AddDisscussHandler is start ---------0')
+        t = threading.Thread(target=self.doPost)
+        t.start()
+
+    def doPost(self):
+        logging.info('AddDisscussHandler is start')
+        img_id = self.get_argument('img_id',None)
+        discuss_content = self.get_argument('discuss_content',None)
+        user_id = self.get_secure_cookie('user_id',None)
+        user_name = self.get_secure_cookie('user_nickname',None)
+        param = [img_id,user_id,user_name,discuss_content]
+        main_db.insertDiscuss(param)
+        self.make_redirect('/image_detail.html?img_id=%s' % img_id)
+
+    @web.authenticated
+    def get(self):
+        self.make_render('login.html')
+
 class PersonalInfoHandler(BaseHandler):
 
     @web.authenticated
@@ -133,11 +159,23 @@ class ShareImgHandler(BaseHandler):
         imgfile = self.request.files.get('my_img')
         try:
             img = imgfile[0]
-            img_name = name = str(datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_%f'))  + '_' + self.current_user + '_upload.png'
+            img_name = str(datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_%f'))  + '_' + self.current_user + '_upload.png'
             save_path = os.path.join(USER_IMG_PATH,img_name)
             logging.info('save img: %s',save_path)
             im = Image.open(StringIO(img['body']))
             im = im.resize((1200, 800), Image.ANTIALIAS)
+
+            im_small_name = str(datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_%f'))  + '_' + self.current_user + '_upload_small.png'
+            im_small_save_path = os.path.join(USER_IMG_PATH,im_small_name)
+            logging.info('save img small:%s',im_small_save_path)
+            im_small = Image.open(StringIO(img['body']))
+            im_small = im_small.resize((600,400),Image.ANTIALIAS)
+            im_small_file = StringIO()
+            im_small.save(im_small_file,format='PNG')
+            im_small_data = im_small_file.getvalue()
+            fd = open(im_small_save_path,'wb')
+            fd.write(im_small_data)
+
             im_file = StringIO()
             im.save(im_file, format='PNG')
             im_data = im_file.getvalue()
@@ -145,7 +183,8 @@ class ShareImgHandler(BaseHandler):
             f.write(im_data)
 
             img_addr = os.path.join(IMG_ADDR_DIRECT,img_name)
-            img_addr_small = img_addr
+
+            img_addr_small = os.path.join(IMG_ADDR_DIRECT,im_small_name)
             img_size = ''
             img_author_id = u_id
             img_category_id = c_id

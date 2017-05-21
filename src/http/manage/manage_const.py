@@ -5,4 +5,4 @@
 
 
 # -------------------const-------------------
-INFO_LIST_COUNT = 10
+INFO_LIST_COUNT = 200

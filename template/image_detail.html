@@ -28,33 +28,27 @@
 <div class="img-detail-coment add-bg">
     <h1 class="img-detail-comment-title">评论</h1>
     <div class="add-disscuss">
+    <form method="POST" action="/add_disscuss">
+        {%raw xsrf_form_html() %}
         <p>添加评论</p>
-        <textarea></textarea>
+        <input type="text" name="img_id" value="{{ result['img']['img_id'] }}" style="display: none;" />
+        <textarea name="discuss_content"></textarea>
         <button class="btn btn-default">提交</button>
+    </form>
     </div>
-    <div class="user-comment">
-        <div class="user-pic"><img src="/static/image/hot/touxiang_1.jpg"></div>
-        <div class="disscuss">
-            <p class="disscuss-content">
-                <span class="disscuss-title">username:</span>
-                这是测试内容
-            </p>
-            <p class="disscuss-datetime">2017-1-2 12:01:02</p>
-            <p class="disscuss-option"> 回复 </p>
-        </div>
-    </div>
+    {% for k in result['discuss'] %}
     <div class="user-comment">
         <div class="user-pic"><img src="/static/image/header/1.jpg"></div>
         <div class="disscuss">
             <p class="disscuss-content">
-                <span class="disscuss-title">username:</span>
-                挺好看的，关注作者
+                <span class="disscuss-title">{{ k['user_name'] }}:</span>
+                {{ k['discuss_content'] }}
             </p>
-            <p class="disscuss-datetime">2017-1-2 12:01:02</p>
+            <p class="disscuss-datetime">{{ k['discuss_date'] }}</p>
             <p class="disscuss-option"> 回复 </p>
         </div>
     </div>
-
+    {% end %}
     <div class="get-more-line now-class">
         <a href="">加载更多</a>
     </div>
